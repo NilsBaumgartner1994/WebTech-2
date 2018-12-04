@@ -1,55 +1,55 @@
-Aufgabe 1: Gemeinsame Anwendung (25%)
-Vereinigen Sie Wiki und Icon-Editor zu einer gemeinsamen Anwendung mit folgenden Eigenschaften:
-Erstellen Sie eine Datei iconwiki.py, die die notwendigen Apps definiert bzw. importiert, konfiguriert und die Web-Anwendung startet. (Analog zu wiki.py und iconeditor.py). (5%)
-Erstellen Sie ein ein Basis-Template (Jinja2) und eine zentrale CSS-Datei, die für alle Seiten verwendet werden. In diesem Basis-Template gibt es eine Haupt-Navigation mit den Punkten „Wiki“, „Icon-Editor“, „Hilfe“. Über die Hauptnavigation kann man zwischen den Anwendungsteilen wechseln, der jeweils aktive Anwendungsteil wird hervorgehoben. (10%)
-Es gibt eine Sekundärnavigation, die vom gewählten Anwendungsteil abhängt: (5%)
-Auf breiten Bildschirmen (>=1024 Pixel) soll die Seitennavigation links vom Hauptinhalt angezeigt werden.
-Auf schmalen Bildschirmen (<1024 Pixel) soll die Seitennavigation in veränderter Form (s. Aufgabe 2 und 3) über dem Hauptinhalt angezeigt werden.
-Für die Hilfeanwendung kann die Sekundärnavigation leer bleiben.
-Für Wiki und Iconeditor s. Aufgabe 2 und 3
-Der Anwendungsteil „Hilfe“ besteht aus einer einzelnen HTML-Seite, die Informationen zur Anwendung enthält. Diese Informationen können knapp ausfallen. (5%)
+(): Aufgabe 1: Gemeinsame Anwendung (25%)
+(): Vereinigen Sie Wiki und Icon-Editor zu einer gemeinsamen Anwendung mit folgenden Eigenschaften:
+(): Erstellen Sie eine Datei iconwiki.py, die die notwendigen Apps definiert bzw. importiert, konfiguriert und die Web-Anwendung startet. (Analog zu wiki.py und iconeditor.py). (5%)
+(): Erstellen Sie ein ein Basis-Template (Jinja2) und eine zentrale CSS-Datei, die für alle Seiten verwendet werden. In diesem Basis-Template gibt es eine Haupt-Navigation mit den Punkten „Wiki“, „Icon-Editor“, „Hilfe“. Über die Hauptnavigation kann man zwischen den Anwendungsteilen wechseln, der jeweils aktive Anwendungsteil wird hervorgehoben. (10%)
+(): Es gibt eine Sekundärnavigation, die vom gewählten Anwendungsteil abhängt: (5%)
+(): Auf breiten Bildschirmen (>=1024 Pixel) soll die Seitennavigation links vom Hauptinhalt angezeigt werden.
+(): Auf schmalen Bildschirmen (<1024 Pixel) soll die Seitennavigation in veränderter Form (s. Aufgabe 2 und 3) über dem Hauptinhalt angezeigt werden.
+(): Für die Hilfeanwendung kann die Sekundärnavigation leer bleiben.
+(): Für Wiki und Iconeditor s. Aufgabe 2 und 3
+(): Der Anwendungsteil „Hilfe“ besteht aus einer einzelnen HTML-Seite, die Informationen zur Anwendung enthält. Diese Informationen können knapp ausfallen. (5%)
 
-Aufgabe 2: Erweiterung des Icon-Editors (25%)
-Erweitern Sie den Icon-Editor um folgende Eigenschaften / Möglichkeiten:
-Mit gedrückter Maustaste soll gezeichnet werden können, d.h. es soll nicht nötig sein, für jedes einzelne Pixel einzeln zu klicken. (5%)
-Mit Klick auf ein Icon in der Liste vorhandener Icons soll dieses Icon in den Editor geladen werden. (5%)
-Es soll drei Werkzeuge geben: Zeichnen, Füllen und Radieren: (10%)
-Es gibt einen Umschalter, der aus drei Icons mit Beschriftung besteht. Das jeweils ausgewählte Werkzeug wird hervorgehoben.
-Der Mauszeiger ändert sich mit ausgewähltem Werkzeug, wenn er sich innerhalb der Eingabe-Tabelle befindet (also dort, wo Pixel gesetzt werden können). Wählen Sie sinnvolle Zeiger für die drei Werkzeuge.
-Das Zeichen-Werkzeug ist das bereits vorhandene Werkzeug.
-Das Radier-Werkzeug funktioniert wie das Zeichenwerkzeug, „zeichnet“ aber immer in weiß.
-Das Füll-Werkzeug füllt rekursiv die aktuelle Zelle und alle angrenzenden Zellen gleicher Farbe mit der aktuellen Zeichenfarbe. Rekursiv bedeutet: Das Füllverfahren füllt ausgehend vom gewählten Pixel die zusammenhängende Fläche gleicher Farbe. Die Implementation muss nicht rekursiv erfolgen.
-Das ausgewählte Werkzeug soll in einem Cookie gespeichert werden. Beim Laden bzw. Neuladen des Iconeditors soll also das vorher ausgewählte Werkzeug immer noch ausgewählt sein. (5%)
+(): Aufgabe 2: Erweiterung des Icon-Editors (25%)
+(): Erweitern Sie den Icon-Editor um folgende Eigenschaften / Möglichkeiten:
+(): Mit gedrückter Maustaste soll gezeichnet werden können, d.h. es soll nicht nötig sein, für jedes einzelne Pixel einzeln zu klicken. (5%)
+(): Mit Klick auf ein Icon in der Liste vorhandener Icons soll dieses Icon in den Editor geladen werden. (5%)
+(): Es soll drei Werkzeuge geben: Zeichnen, Füllen und Radieren: (10%)
+(): Es gibt einen Umschalter, der aus drei Icons mit Beschriftung besteht. Das jeweils ausgewählte Werkzeug wird hervorgehoben.
+(): Der Mauszeiger ändert sich mit ausgewähltem Werkzeug, wenn er sich innerhalb der Eingabe-Tabelle befindet (also dort, wo Pixel gesetzt werden können). Wählen Sie sinnvolle Zeiger für die drei Werkzeuge.
+(): Das Zeichen-Werkzeug ist das bereits vorhandene Werkzeug.
+(): Das Radier-Werkzeug funktioniert wie das Zeichenwerkzeug, „zeichnet“ aber immer in weiß.
+(): Das Füll-Werkzeug füllt rekursiv die aktuelle Zelle und alle angrenzenden Zellen gleicher Farbe mit der aktuellen Zeichenfarbe. Rekursiv bedeutet: Das Füllverfahren füllt ausgehend vom gewählten Pixel die zusammenhängende Fläche gleicher Farbe. Die Implementation muss nicht rekursiv erfolgen.
+(): Das ausgewählte Werkzeug soll in einem Cookie gespeichert werden. Beim Laden bzw. Neuladen des Iconeditors soll also das vorher ausgewählte Werkzeug immer noch ausgewählt sein. (5%)
 
-Aufgabe 3: Erweiterung des Wikis (25%)
-Erweitern Sie das Wiki um folgende Eigenschaften/Möglichkeiten:
-Das Wiki soll auf Jinja2-Templates umgestellt werden, bis auf die Markup-Methode soll im Python-Code kein HTML erzeugt werden. (5%)
-In einer Seitennavigation soll eine Liste aller vorhandenen Wiki-Seiten (als Navigation) angezeigt werden. (5%)
-Jeder Wiki-Seite soll ein Icon zugeordnet werden: (10%)
-Definieren und implementieren Sie einen sinnvollen Mechanismus, wie die Zuordnung von Wiki-Seite und Icon  gespeichert werden kann.
-In der Seitenliste soll vor jedem Seitennamen das zugehörige Icon angezeigt werden.
-In der Ansicht einer Wikiseite soll das zugehörige Icon vor dem Seitennamen angezeigt werden.
-In der Editier-Ansicht einer Wikiseite soll das Icon aus einer Liste der verfügbaren Icons ausgewählt werden können.
-Die Namen/Links der drei zuletzt angesehenen Wiki-Seiten sollen in einer Session abgelegt werden und bei den Wiki-Aktionen (edit/back to main) als zusätzliche Navigation (z.B. "zuletzte besuchte Seiten: ...") angezeigt werden. (5%)
+(): Aufgabe 3: Erweiterung des Wikis (25%)
+(): Erweitern Sie das Wiki um folgende Eigenschaften/Möglichkeiten:
+(): Das Wiki soll auf Jinja2-Templates umgestellt werden, bis auf die Markup-Methode soll im Python-Code kein HTML erzeugt werden. (5%)
+(): In einer Seitennavigation soll eine Liste aller vorhandenen Wiki-Seiten (als Navigation) angezeigt werden. (5%)
+(): Jeder Wiki-Seite soll ein Icon zugeordnet werden: (10%)
+(): Definieren und implementieren Sie einen sinnvollen Mechanismus, wie die Zuordnung von Wiki-Seite und Icon  gespeichert werden kann.
+(): In der Seitenliste soll vor jedem Seitennamen das zugehörige Icon angezeigt werden.
+(): In der Ansicht einer Wikiseite soll das zugehörige Icon vor dem Seitennamen angezeigt werden.
+(): In der Editier-Ansicht einer Wikiseite soll das Icon aus einer Liste der verfügbaren Icons ausgewählt werden können.
+(): Die Namen/Links der drei zuletzt angesehenen Wiki-Seiten sollen in einer Session abgelegt werden und bei den Wiki-Aktionen (edit/back to main) als zusätzliche Navigation (z.B. "zuletzte besuchte Seiten: ...") angezeigt werden. (5%)
 
-Aufgabe 4: Definition einer Middleware (25%)
-Entwickeln Sie eine Middleware für eine der beiden folgenden Varianten (freie Auswahl):
-Variante 1: http Basic Auth (25%)
-In RFC 7617 wird das http 'Basic'-Authentifizierungsverfahren definiert (https://tools.ietf.org/html/rfc7617), das eine sehr einfache Möglichkeit darstellt, einen Passwortschutz für Web-Ressourcen zu realisieren. Hier fragt der Browser mit einem eigenen Dialog nach Benutzernamen und Passwort und übermittelt die Daten an die Anwendung. Sie müssen (und können!) also kein eigenes Login-Formular erstellen.
+(): Aufgabe 4: Definition einer Middleware (25%)
+(): Entwickeln Sie eine Middleware für eine der beiden folgenden Varianten (freie Auswahl):
+(): Variante 1: http Basic Auth (25%)
+(): In RFC 7617 wird das http 'Basic'-Authentifizierungsverfahren definiert (https://tools.ietf.org/html/rfc7617), das eine sehr einfache Möglichkeit darstellt, einen Passwortschutz für Web-Ressourcen zu realisieren. Hier fragt der Browser mit einem eigenen Dialog nach Benutzernamen und Passwort und übermittelt die Daten an die Anwendung. Sie müssen (und können!) also kein eigenes Login-Formular erstellen.
 
-Erweitern Sie die IconWiki-Anwendung wie folgt:
-Der Zugriff auf die Anwendung (alle Routen) soll mit einem einfachen Passwortschutz (http Basic Auth) gesichert werden.
-Das http-Basic-Auth-Verfahren funktioniert wie folgt:
-Wenn der Request keinen Header „Authorization“ enthält oder der Wert des Headers nicht korrekt ist (s.u.), dann wird eine Response mit Code „401 Unauthorized“ generiert, die den Header WWW-Authenticate enthält (s.u.). Der Body der Response enthält typischerweise eine kurze Fehlermeldung. Der Browser fragt dann automatisch den Nutzer nach Benutzernamen und Passwort und generiert einen neuen Request.
-Wenn der Request einen korrekten Authorization-Header enthält, wird für die angefragte Route eine ganz normale Response generiert.
-Die Header haben folgenden Aufbau:
-WWW-Authenticate: Basic realm=„Bitte Passwort eingeben“ (s. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate)
-Authorization: Basic <base64(username:passwort)> (s. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization )
-Definieren Sie das Verfahren als Middleware, die nach Aktivierung für alle Requests verwendet wird und die Auswertung bzw. Generierung der notwendigen Header-Felder übernimmt. (20%)
-Das Verfahren muss mit dem Benutzernamen "user" und dem Passwort "pass" funktionieren, Sie können weitere Kombinationen zulassen. (5%)
-Variante 2: Theme-Switch (25%)
-Es soll die Möglichkeit geben, zwischen einem hellen „Tag“-Modus und einem dunklen „Nacht“-Modus umzuschalten. Gehen Sie wie folgt vor:
-Integrieren Sie dazu eine Umschaltmöglichkeit (Form ist Ihnen überlassen: Checkbox, Auswahlliste, Link, ...) in die Anwendung (Platzierung ist Ihnen überlassen). (5%)
-Die Auswahl soll in einem Cookie gespeichert werden, der auch nach Browserneustart noch gültig ist. (5%)
-Die Unterscheidung zwischen hellem und dunklen Modus soll über zwei zusätzliche CSS-Dateien dark.css und bright.css realisiert werden. Im hellen Modus soll dunkle Schrift auf hellem Grund verwendet werden, im dunklen Modus umgekehrt. (10%)
-Abhängig vom Cookie-Wert (bzw. dem Default-Wert 'hell') soll die passende CSS-Datei nach der Haupt-CSS-Datei geladen werden. (5%)
+(): Erweitern Sie die IconWiki-Anwendung wie folgt:
+(): Der Zugriff auf die Anwendung (alle Routen) soll mit einem einfachen Passwortschutz (http Basic Auth) gesichert werden.
+(): Das http-Basic-Auth-Verfahren funktioniert wie folgt:
+(): Wenn der Request keinen Header „Authorization“ enthält oder der Wert des Headers nicht korrekt ist (s.u.), dann wird eine Response mit Code „401 Unauthorized“ generiert, die den Header WWW-Authenticate enthält (s.u.). Der Body der Response enthält typischerweise eine kurze Fehlermeldung. Der Browser fragt dann automatisch den Nutzer nach Benutzernamen und Passwort und generiert einen neuen Request.
+(): Wenn der Request einen korrekten Authorization-Header enthält, wird für die angefragte Route eine ganz normale Response generiert.
+(): Die Header haben folgenden Aufbau:
+(): WWW-Authenticate: Basic realm=„Bitte Passwort eingeben“ (s. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate)
+(): Authorization: Basic <base64(username:passwort)> (s. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization )
+(): Definieren Sie das Verfahren als Middleware, die nach Aktivierung für alle Requests verwendet wird und die Auswertung bzw. Generierung der notwendigen Header-Felder übernimmt. (20%)
+(): Das Verfahren muss mit dem Benutzernamen "user" und dem Passwort "pass" funktionieren, Sie können weitere Kombinationen zulassen. (5%)
+(): Variante 2: Theme-Switch (25%)
+(): Es soll die Möglichkeit geben, zwischen einem hellen „Tag“-Modus und einem dunklen „Nacht“-Modus umzuschalten. Gehen Sie wie folgt vor:
+(): Integrieren Sie dazu eine Umschaltmöglichkeit (Form ist Ihnen überlassen: Checkbox, Auswahlliste, Link, ...) in die Anwendung (Platzierung ist Ihnen überlassen). (5%)
+(): Die Auswahl soll in einem Cookie gespeichert werden, der auch nach Browserneustart noch gültig ist. (5%)
+(): Die Unterscheidung zwischen hellem und dunklen Modus soll über zwei zusätzliche CSS-Dateien dark.css und bright.css realisiert werden. Im hellen Modus soll dunkle Schrift auf hellem Grund verwendet werden, im dunklen Modus umgekehrt. (10%)
+(): Abhängig vom Cookie-Wert (bzw. dem Default-Wert 'hell') soll die passende CSS-Datei nach der Haupt-CSS-Datei geladen werden. (5%)

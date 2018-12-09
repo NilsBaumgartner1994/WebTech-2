@@ -9,26 +9,33 @@
 
 </head>
 <body>
-    <nav>
-        {% set navigation_bar = [
-        ('/', 'wiki', 'Wiki'),
-        ('/iconeditor', 'iconeditor', 'Icon-Editor'),
-        ('/hilfe', 'hilfe', 'Hilfe')
-        ] -%}
-        {% set active_page = active_page|default('wiki') -%}
+<nav class="main_navigation">
+    {% set navigation_bar = [
+    ('/', 'wiki', 'Wiki'),
+    ('/iconeditor', 'iconeditor', 'Icon-Editor'),
+    ('/hilfe', 'hilfe', 'Hilfe')
+    ] -%}
+    {% set active_page = active_page|default('wiki') -%}
 
-        <ul id="navigation">
-            <li>ICONwiki</li>
-            {% for href, id, caption in navigation_bar %}
-            <li{% if id == active_page %} class="active"{% endif%}>
-            <a href="{{ href|e }}">{{ caption|e }}</a></li>
-            {% endfor %}
-        </ul>
-    </nav>
+    <ul>
+        <li>ICONwiki</li>
+        {% for href, id, caption in navigation_bar %}
+        <li{% if id == active_page %} class="active"{% endif%}>
+        <a href="{{ href|e }}">{{ caption|e }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
 
-    <section>
-        {% block content %}...no content...{% endblock %}
-    </section>
+<nav class="secondary_navigation">
+
+    <ul>
+        <li>Sekundärnavigation</li>
+    </ul>
+</nav>
+
+<section>
+    {% block content %}...no content...{% endblock %}
+</section>
 
 </body>
 </html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SKEL{% endblock %}</title>
+    {% block head %}
+    {% endblock %}
+    <link rel="stylesheet" href="/static/basis.css">
+
+</head>
+<body>
+    <nav>
+        {% set navigation_bar = [
+        ('/', 'wiki', 'Wiki'),
+        ('/iconeditor', 'iconeditor', 'Icon-Editor'),
+        ('/hilfe', 'hilfe', 'Hilfe')
+        ] -%}
+        {% set active_page = active_page|default('wiki') -%}
+
+        <ul id="navigation">
+            <li>ICONwiki</li>
+            {% for href, id, caption in navigation_bar %}
+            <li{% if id == active_page %} class="active"{% endif%}>
+            <a href="{{ href|e }}">{{ caption|e }}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <section>
+        {% block content %}...no content...{% endblock %}
+    </section>
+
+</body>
+</html>

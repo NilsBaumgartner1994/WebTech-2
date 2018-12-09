@@ -1,15 +1,18 @@
-<!DOCTYPE html>
-<html>
+{% extends 'basis.tmpl' %}
+{% set active_page = 'iconeditor' %}
 
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>ICON editor</title>
-    <script src="/static/validate.js"></script>
-    <script src="/static/iconeditor.js"></script>
-    <link rel="stylesheet" href="/static/iconeditor.css">
-</head>
 
-<body>
+
+{% block title %}ICON editor{% endblock %}
+
+{% block head %}
+<script src="/static/validate.js"></script>
+<script src="/static/iconeditor.js"></script>
+<link rel="stylesheet" href="/static/iconeditor.css">
+{% endblock %}
+
+
+{% block content %}
 
 <header>
     <h1>ICON Editor</h1>
@@ -44,5 +47,5 @@
     <p>Vorhandene Icons:</p>
     $icons
 </footer>
-</body>
-</html>
+{% endblock %}
+

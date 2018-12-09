@@ -11,9 +11,8 @@ import os, re
 class IconEditorApp(webserver.App):
 
     def register_routes(self):
-        self.add_route("$", self.show)
-        self.add_route("save$", self.save)
-
+        self.add_route("iconeditor$", self.show)
+        self.add_route("iconeditor/save$", self.save)
 
     def show(self, request, response, pathmatch):
         """Show the editor. Provide list of saved icons."""

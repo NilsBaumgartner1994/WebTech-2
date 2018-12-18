@@ -6,6 +6,12 @@
     {% block head %}
     {% endblock %}
     <link rel="stylesheet" href="/static/basis.css">
+    {% if True %}
+        <link rel="stylesheet" href="/static/basisDay.css">
+    {% else %}
+        <link rel="stylesheet" href="/static/basisNight.css">
+    {% endif %}
+
 
 </head>
 <body>

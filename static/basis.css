@@ -12,6 +12,14 @@ nav {}
     font-family: "Ubuntu", sans-serif;
     font-weight: bold;
 }
+
+nav.main_navigation ul li {
+    display: inline-block;
+    padding:10px;
+    margin-right:30px;
+    font-style: italic
+}
+
 .secondary_navigation{
     position: fixed;
     padding: 10px;
@@ -20,13 +28,6 @@ nav {}
     background-color: lightgoldenrodyellow;
     font-family: "Ubuntu", sans-serif;
     font-weight: bold;
-}
-
-nav.main_navigation ul li {
-    display: inline-block;
-    padding:10px;
-    margin-right:30px;
-    font-style: italic
 }
 
 nav.secondary_navigation ul li {

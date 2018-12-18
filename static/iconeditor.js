@@ -99,7 +99,6 @@ function tool_selected(tool){
     if(!isValidToolName(tool)){
         tool = "tool-pencil";
     }
-    console.log("Tool: "+tool);
 
     if(isValidToolName(selected_tool)){
         var image = document.getElementById(selected_tool);
@@ -285,16 +284,11 @@ function getCookie(cname) { //from https://www.w3schools.com/js/js_cookies.asp
 
 function saveIntoCookie(){
     document.cookie = "icontool="+selected_tool;
-
-    console.log("Before Save the cookie !: "+document.cookie);
-    document.cookie = "nightmode=on; recently=main#; icontool=tool-fill";
-    console.log("After Save the cookie !: "+document.cookie);
 }
 
 
 window.addEventListener("DOMContentLoaded", function () {
     validate_init();  // fieser Hack!
-    console.log("America first!");
     loadFromCookie();                                                                                                   //------------------------------
     create_table();
     create_color_picker();
@@ -302,6 +296,5 @@ window.addEventListener("DOMContentLoaded", function () {
     create_click_event_for_tools();
 
     preview();
-    console.log(document.cookie);
 });
 

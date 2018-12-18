@@ -50,7 +50,7 @@ class IconEditorApp(webserver.App):
         else:
             with open("data/"+request.params['title'], "w") as f:
                 f.write(request.params['icon'])
-        response.send_redirect('/')
+        response.send_redirect('/iconeditor')
 
 
 if __name__ == '__main__':

@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-	<h1>{{pagename}}</h1>
+	<h1>{{pageicon|safe}}{{pagename}}</h1>
 	<div class="wikitext">
 		{{text|safe}}
 	</div>

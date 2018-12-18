@@ -39,8 +39,11 @@
 
     <ul>
         <li>Sekundärnavigation</li>
-        {% for href, name in sidebar %}
+        {% for href, iconcode, iconname, name in sidebar %}
         <li{% if name == pagename %} class="active"{% endif%}>
+        {% if iconcode != "" and iconname != "" %}
+        <a class=icon-list-item><img src='{{ iconcode|safe }}' title='{{ iconname|safe }}'></a>
+        {% endif%}
         <a href="{{ href|e }}">{{ name|safe }}</a></li>
         {% endfor %}
     </ul>

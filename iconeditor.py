@@ -36,7 +36,7 @@ class IconEditorApp(webserver.App):
             if icon_title != 'tools' and icon_title != '.DS_Store':
                 with open("data/"+icon_title, "r") as f:
                     side = "<a class=icon-list-item><img src='%s' title='%s'> %s </a> " % (f.read(), icon_title, icon_title)
-                    icons.append(("", side))
+                    icons.append(("#", "", "", side))
                     #icons_html += "<li class=icon-list-item><img src='%s' title='%s'></li>" % (f.read(), icon_title)
         icons_html += "</ul>"
         #response.add_cookie(webserver.Cookie('icontool', "default", path='/'))  # , expires=webserver.Cookie.expiry_date(-1)))

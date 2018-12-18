@@ -80,15 +80,17 @@ class WikiApp(webserver.App):
         for page_title in page_list:
                 sitepath = "/show/"+page_title
                 icon, text = self.read_page(page_title)
-                if not icon == None:
+                side = ""
+                if icon == None:
+                    icon = ""
+                else:
                     try:
                         with open("data/" + icon, "r") as f:
-                            side = "<a class=icon-list-item><img src='%s' title='%s'></a> " % (f.read(), icon)
-                            page_title = side + page_title
+                            side = f.read()
                     except IOError:
                         pass
 
-                pages.append((sitepath, page_title))
+                pages.append((sitepath, side, icon, page_title))
         return pages
 
     def updateRecently(self, cookies, response, pagename):
@@ -129,20 +131,16 @@ class WikiApp(webserver.App):
         recentlyLink = []
         for e in recently:
             recentlyLink.append(("/show/"+e,e))
-
-        if icon == None:
-            text = self.markup(text)
-        else:
+        side=""
+        if icon != None:
             try:
                 with open("data/"+icon, "r") as f:
                     side = "<a class=icon-list-item><img src='%s' title='%s'></a> " % (f.read(), icon)
-                    text = side + self.markup(text)
             except IOError:
                 log(3, "Icon not found.")
-                text = self.markup(text)
 
         # show page
-        response.send_template('wiki/show.tmpl', appendDict(request, {'text': text, 'pagename': pagename, 'sidebar':self.getPages(), 'recently':recentlyLink}))
+        response.send_template('wiki/show.tmpl', appendDict(request, {'text': self.markup(text), 'pageicon':side, 'pagename': pagename, 'sidebar':self.getPages(), 'recently':recentlyLink}))
 
     def edit(self, request, response, pathmatch=None):
         """Display wiki page for editing."""

@@ -4,6 +4,7 @@ from server import webserver
 from server.webserver import StopProcessing
 from server.apps.static import StaticApp
 from server.log import log
+from cookies import appendDict
 
 
 import os, re

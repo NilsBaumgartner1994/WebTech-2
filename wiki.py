@@ -13,6 +13,7 @@ from server import webserver
 from server.apps.static import StaticApp
 import re
 import os
+from cookies import appendDict
 
 
 class NoSuchPageError(Exception):
@@ -66,6 +67,14 @@ class WikiApp(webserver.App):
 
         return text
 
+    def getsites(self):
+        site_list = os.listdir("wikidata")
+        sites = []
+        for site_title in site_list:
+                sitepath = "/show/"+site_title
+                sites.append((sitepath, site_title))
+        return sites
+
     def show(self, request, response, pathmatch=None):
         """Evaluate request and construct response."""
 
@@ -82,7 +91,7 @@ class WikiApp(webserver.App):
             return
 
         # show page
-        response.send_template('wiki/show.tmpl', {'text': self.markup(text), 'pagename': pagename})
+        response.send_template('wiki/show.tmpl', appendDict(request, {'text': self.markup(text), 'pagename': pagename, 'sidebar':self.getsites()}))
 
     def edit(self, request, response, pathmatch=None):
         """Display wiki page for editing."""
@@ -98,8 +107,10 @@ class WikiApp(webserver.App):
             # use default text if page does not yet exist
             text = "This page is still empty. Fill it."
 
+        sites = ()
+
         # fill template and show
-        response.send_template('wiki/edit.tmpl', {'text': text, 'pagename': pagename})
+        response.send_template('wiki/edit.tmpl', appendDict(request, {'text': text, 'pagename': pagename, 'sidebar':self.getsites()}))
 
     def save(self, request, response, pathmatch=None):
         """Evaluate request and construct response."""

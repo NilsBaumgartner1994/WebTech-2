@@ -170,16 +170,16 @@ class WikiApp(webserver.App):
                                    {'error': 'No pagename given.', 'text': 'save action needs pagename'}, code=500)
             return
 
+        iconname = ""
         try:
             wikitext = request.params['wikitext']
+            iconname = request.params['wikiicon']
         except KeyError:
             # no text given: error
             response.send_template("wiki/wikierror.tmpl",
                                {'error':'No wikitext given.',
                                 'text':'save action needs wikitext'}, code=500)
             return
-
-        iconname = "a1"
 
         # ok, save text
         f = open("wikidata/" + pagename, "w", encoding='utf-8', newline='')

@@ -35,9 +35,11 @@ class IconEditorApp(webserver.App):
         icons = []
         for icon_title in icon_list:
             #print(icon_title+"\n")
-            if icon_title != 'tools':
+            if icon_title != 'tools' and icon_title != '.DS_Store':
                 with open("data/"+icon_title, "r") as f:
-                    icons.append(("", "<img src='%s' title='%s'>" % (f.read(), icon_title)))
+                    print("IConTitle: "+icon_title+"\n")
+                    side = "<img src='%s' title='%s'>" % (f.read(), icon_title)
+                    icons.append(("", side))
                     icons_html += "<li class=icon-list-item><img src='%s' title='%s'></li>" % (f.read(), icon_title)
         icons_html += "</ul>"
         response.send_template("iconeditor.tmpl", appendDict(request,{'icons': icons_html, 'tools' : tools_html, 'sidebar':icons}))

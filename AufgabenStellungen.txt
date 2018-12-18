@@ -1,13 +1,13 @@
-(): Aufgabe 1: Gemeinsame Anwendung (25%)
-(): Vereinigen Sie Wiki und Icon-Editor zu einer gemeinsamen Anwendung mit folgenden Eigenschaften:
-(): Erstellen Sie eine Datei iconwiki.py, die die notwendigen Apps definiert bzw. importiert, konfiguriert und die Web-Anwendung startet. (Analog zu wiki.py und iconeditor.py). (5%)
-(): Erstellen Sie ein ein Basis-Template (Jinja2) und eine zentrale CSS-Datei, die für alle Seiten verwendet werden. In diesem Basis-Template gibt es eine Haupt-Navigation mit den Punkten „Wiki“, „Icon-Editor“, „Hilfe“. Über die Hauptnavigation kann man zwischen den Anwendungsteilen wechseln, der jeweils aktive Anwendungsteil wird hervorgehoben. (10%)
-(): Es gibt eine Sekundärnavigation, die vom gewählten Anwendungsteil abhängt: (5%)
-(): Auf breiten Bildschirmen (>=1024 Pixel) soll die Seitennavigation links vom Hauptinhalt angezeigt werden.
-(): Auf schmalen Bildschirmen (<1024 Pixel) soll die Seitennavigation in veränderter Form (s. Aufgabe 2 und 3) über dem Hauptinhalt angezeigt werden.
-(): Für die Hilfeanwendung kann die Sekundärnavigation leer bleiben.
-(): Für Wiki und Iconeditor s. Aufgabe 2 und 3
-(): Der Anwendungsteil „Hilfe“ besteht aus einer einzelnen HTML-Seite, die Informationen zur Anwendung enthält. Diese Informationen können knapp ausfallen. (5%)
+(X): Aufgabe 1: Gemeinsame Anwendung (25%)
+(X): Vereinigen Sie Wiki und Icon-Editor zu einer gemeinsamen Anwendung mit folgenden Eigenschaften:
+(X): Erstellen Sie eine Datei iconwiki.py, die die notwendigen Apps definiert bzw. importiert, konfiguriert und die Web-Anwendung startet. (Analog zu wiki.py und iconeditor.py). (5%)
+(X): Erstellen Sie ein ein Basis-Template (Jinja2) und eine zentrale CSS-Datei, die für alle Seiten verwendet werden. In diesem Basis-Template gibt es eine Haupt-Navigation mit den Punkten „Wiki“, „Icon-Editor“, „Hilfe“. Über die Hauptnavigation kann man zwischen den Anwendungsteilen wechseln, der jeweils aktive Anwendungsteil wird hervorgehoben. (10%)
+(X): Es gibt eine Sekundärnavigation, die vom gewählten Anwendungsteil abhängt: (5%)
+(X): Auf breiten Bildschirmen (>=1024 Pixel) soll die Seitennavigation links vom Hauptinhalt angezeigt werden.
+(X): Auf schmalen Bildschirmen (<1024 Pixel) soll die Seitennavigation in veränderter Form (s. Aufgabe 2 und 3) über dem Hauptinhalt angezeigt werden.
+(X): Für die Hilfeanwendung kann die Sekundärnavigation leer bleiben.
+(X): Für Wiki und Iconeditor s. Aufgabe 2 und 3
+(X): Der Anwendungsteil „Hilfe“ besteht aus einer einzelnen HTML-Seite, die Informationen zur Anwendung enthält. Diese Informationen können knapp ausfallen. (5%)
 
 (): Aufgabe 2: Erweiterung des Icon-Editors (25%)
 (X): Erweitern Sie den Icon-Editor um folgende Eigenschaften / Möglichkeiten:
@@ -22,9 +22,9 @@
 (): Das ausgewählte Werkzeug soll in einem Cookie gespeichert werden. Beim Laden bzw. Neuladen des Iconeditors soll also das vorher ausgewählte Werkzeug immer noch ausgewählt sein. (5%)
 
 (): Aufgabe 3: Erweiterung des Wikis (25%)
-(): Erweitern Sie das Wiki um folgende Eigenschaften/Möglichkeiten:
-(): Das Wiki soll auf Jinja2-Templates umgestellt werden, bis auf die Markup-Methode soll im Python-Code kein HTML erzeugt werden. (5%)
-(): In einer Seitennavigation soll eine Liste aller vorhandenen Wiki-Seiten (als Navigation) angezeigt werden. (5%)
+(X): Erweitern Sie das Wiki um folgende Eigenschaften/Möglichkeiten:
+(X): Das Wiki soll auf Jinja2-Templates umgestellt werden, bis auf die Markup-Methode soll im Python-Code kein HTML erzeugt werden. (5%)
+(X): In einer Seitennavigation soll eine Liste aller vorhandenen Wiki-Seiten (als Navigation) angezeigt werden. (5%)
 (): Jeder Wiki-Seite soll ein Icon zugeordnet werden: (10%)
 (): Definieren und implementieren Sie einen sinnvollen Mechanismus, wie die Zuordnung von Wiki-Seite und Icon  gespeichert werden kann.
 (): In der Seitenliste soll vor jedem Seitennamen das zugehörige Icon angezeigt werden.
@@ -32,10 +32,10 @@
 (): In der Editier-Ansicht einer Wikiseite soll das Icon aus einer Liste der verfügbaren Icons ausgewählt werden können.
 (): Die Namen/Links der drei zuletzt angesehenen Wiki-Seiten sollen in einer Session abgelegt werden und bei den Wiki-Aktionen (edit/back to main) als zusätzliche Navigation (z.B. "zuletzte besuchte Seiten: ...") angezeigt werden. (5%)
 
-(): Aufgabe 4: Definition einer Middleware (25%)
-(): Entwickeln Sie eine Middleware für eine der beiden folgenden Varianten (freie Auswahl):
-(): Variante 1: http Basic Auth (25%)
-(): In RFC 7617 wird das http 'Basic'-Authentifizierungsverfahren definiert (https://tools.ietf.org/html/rfc7617), das eine sehr einfache Möglichkeit darstellt, einen Passwortschutz für Web-Ressourcen zu realisieren. Hier fragt der Browser mit einem eigenen Dialog nach Benutzernamen und Passwort und übermittelt die Daten an die Anwendung. Sie müssen (und können!) also kein eigenes Login-Formular erstellen.
+(X): Aufgabe 4: Definition einer Middleware (25%)
+(X): Entwickeln Sie eine Middleware für eine der beiden folgenden Varianten (freie Auswahl):
+(X): Variante 1: http Basic Auth (25%)
+(X): In RFC 7617 wird das http 'Basic'-Authentifizierungsverfahren definiert (https://tools.ietf.org/html/rfc7617), das eine sehr einfache Möglichkeit darstellt, einen Passwortschutz für Web-Ressourcen zu realisieren. Hier fragt der Browser mit einem eigenen Dialog nach Benutzernamen und Passwort und übermittelt die Daten an die Anwendung. Sie müssen (und können!) also kein eigenes Login-Formular erstellen.
 
 (): Erweitern Sie die IconWiki-Anwendung wie folgt:
 (): Der Zugriff auf die Anwendung (alle Routen) soll mit einem einfachen Passwortschutz (http Basic Auth) gesichert werden.

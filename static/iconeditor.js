@@ -15,11 +15,16 @@ function create_table() {
             td.className = "icon-pixel";
             td.id="pixel-"+ i + "-" + j;
             td.style.backgroundColor = "rgb(255,255,255)"; // no dash - css attribute name becomes camelCase
-            td.addEventListener("click", setpixel)
+            td.addEventListener("click", setpixel);
+            td.addEventListener("mousemove", moveOverPixel);
             tr.appendChild(td);
         }
     }
 }
+
+
+
+
 
 function create_color_picker() {
     var tablediv = document.getElementById('color-picker');
@@ -56,6 +61,23 @@ function setpixel(event) {
     this.style.backgroundColor = currentColor;
     preview();
 }
+
+
+//////////////////////////
+//////////////////////////
+
+
+function moveOverPixel(event) {
+    if(event.buttons == 1) { // Mit gedrückter Maustaste soll gezeichnet werden können,
+                            //d.h. es soll nicht nötig sein, für jedes einzelne Pixel einzeln zu klicken. (5%)
+        var currentColor=document.getElementById("current-color").style.backgroundColor;
+        this.style.backgroundColor = currentColor;
+        preview();
+    }
+}
+
+//////////////////////////
+//////////////////////////
 
 function preview() {
     var canvas = document.getElementById('preview-canvas');

@@ -10,17 +10,74 @@
 
 
 //Variablen
-var selected_tool;
+var selected_tool = "";
 
 //mouse event wenn gezeichnet werden soll
 function move_over_pixel(event) {
     if(event.buttons == 1) { // Mit gedrückter Maustaste soll gezeichnet werden können,
                             //d.h. es soll nicht nötig sein, für jedes einzelne Pixel einzeln zu klicken. (5%)
-        var currentColor=document.getElementById("current-color").style.backgroundColor;
-        this.style.backgroundColor = currentColor;
-        preview();
+        setPixelDependingOnTool(event.target); //tue so, als sei ein Pixel berührt worden
     }
 }
+
+//Set Pixel methode, die Aufgerufen wird, wenn ein Pixel berührt wird
+function setpixel(event) {
+    setPixelDependingOnTool(this); //könnte direkt beim erstellen der Pixel Zelle hinzugefügt werden, jedoch
+    //kann an dieser Stelle das Event noch weiter befragt werden
+}
+
+//führe an einem Pixel das Werkzeug aus
+function setPixelDependingOnTool(pixel){
+    if(isEraserSelected()){ //Radieren
+        onPixelUseEraser(pixel);
+    }
+    if(isPencilSelected()){ //Zeichnen
+        onPixelUsePencil(pixel);
+    }
+    if(isFillSelected()){ //Füllen
+        onPixelUseFill(pixel);
+    }
+    preview(); //zeige ergebnis in preview
+}
+
+function onPixelUseEraser(pixel){
+    pixel.style.backgroundColor = "rgb(255,255,255)";
+}
+
+function onPixelUsePencil(pixel){
+    var currentColor=document.getElementById("current-color").style.backgroundColor;
+    pixel.style.backgroundColor = currentColor;
+}
+
+//Benutze die Füll Methode an einen Pixel
+function onPixelUseFill(pixel){
+    var coord = pixel.id.split("-"); //splitte die id um coordinaten zu erhalten
+    var selectedColor = document.getElementById("current-color").style.backgroundColor; //merke farbe zum einzeichnen
+    var colorToReplace = pixel.style.backgroundColor; //merke farbe die der erste Pixel hat
+    floodFill(coord[1],coord[2],selectedColor,colorToReplace); //rufe floodfill auf
+}
+
+//FloodFill an einer Pixel Position, wobei colorToReplace ersetzt wird mit selectedColor
+function floodFill(x,y,selectedColor,colorToReplace){
+    if(x==undefined || y == undefined || selectedColor==undefined){ //keine farbe gesetzt
+        return;
+    }
+
+    if(x<0 || x >= 16 || y<0 || y >= 16){ //wenn out of bounds
+        return;
+    }
+
+    var pixel = document.getElementById("pixel-"+x+"-"+y); //den pixel wo es hin soll
+    if(pixel.style.backgroundColor==colorToReplace){ //wenn selbe farbe wie der erste gewählte Pixel
+        pixel.style.backgroundColor = selectedColor;   //setze die farbe
+        //und nun rekursive aufrufe
+        floodFill(x-1,y,selectedColor,colorToReplace); //links
+        floodFill(x+1,y,selectedColor,colorToReplace); //rechts
+        floodFill(x,y-1,selectedColor,colorToReplace); //unten
+        floodFill(x,y+1,selectedColor,colorToReplace); //oben
+    }
+}
+
 
 
 //füge allen tools ein event listener an
@@ -29,20 +86,55 @@ function create_click_event_for_tools() {
     var tools = document.getElementsByClassName("tool-list-item"); //hole items aus der definierten icon Liste
     for (var tool_item of tools) { //hier nicht in, da wir die werte wollen https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/for...of
         const tool = tool_item.childNodes[0]; //in dem listen element, befindet sich nur ein Bild //hier ggf. mehr sicherheit durch check
-        tool_selected(tool);
+        tool_selected(tool.id);
         //hier ist const notwendig, da sonst das zuletzt genommene Object übergeben wird, wir wollen die "Referenz" uns merken
         tool.addEventListener("click", function() {
-            tool_selected(tool);
+            tool_selected(tool.id);
         });
     }
 }
 
+//Setze ein Gewähltes Tool, soll ein Bild sein, da hier der Rahmen gesetzt wird //Nicht so sicher
 function tool_selected(tool){
-    if(selected_tool != undefined){
-        selected_tool.border = 0; //remove border from old
+    if(selected_tool != "" && selected_tool != undefined){
+        var image = document.getElementById(selected_tool);
+        image.border = 0; //remove border from old
+        console.log(image);
     }
     selected_tool = tool; //save new tool
-    tool.border=2; //make border
+    document.getElementById(tool).border = 2; //make border
+
+    //Setze entsprechenden Cursor für alle Pixel/Zellen
+    if(isEraserSelected()){
+        set_cursor_on_pixels("no-drop");
+    }
+    if(isPencilSelected()){
+        set_cursor_on_pixels("cell");
+    }
+    if(isFillSelected()){
+        set_cursor_on_pixels("move");
+    }
+
+}
+
+//Prüfen welches Tool verwendet wird
+function isPencilSelected(){
+    return selected_tool == "tool-pencil";
+}
+function isEraserSelected(){
+    return selected_tool == "tool-eraser";
+}
+function isFillSelected(){
+    return selected_tool == "tool-fill";
+}
+
+//Setze für alle Pixel Zellen einen Cursor Typ
+function set_cursor_on_pixels(cursor_type) {
+    var pixel_cells = document.getElementsByClassName("icon-pixel"); //hole alle Pixel
+
+    for(var pixel_cell of pixel_cells){ //für jede Zelle/Pixel
+        pixel_cell.style.cursor = cursor_type; //Setze Cursor Type
+    }
 }
 
 
@@ -139,15 +231,6 @@ function choosecolor(event) {
     var currentColor=document.getElementById("current-color");
     currentColor.style.backgroundColor = this.style.backgroundColor;
 }
-
-function setpixel(event) {
-    var currentColor=document.getElementById("current-color").style.backgroundColor;
-    this.style.backgroundColor = currentColor;
-    preview();
-}
-
-
-
 
 function preview() {
     var canvas = document.getElementById('preview-canvas');

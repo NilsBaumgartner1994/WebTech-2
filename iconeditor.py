@@ -33,7 +33,7 @@ class IconEditorApp(webserver.App):
         icon_list = os.listdir("data")
         icons_html = "<ul>"
         for icon_title in icon_list:
-            print(icon_title+"\n")
+            #print(icon_title+"\n")
             if icon_title != 'tools':
                 with open("data/"+icon_title, "r") as f:
                     icons_html += "<li class=icon-list-item><img src='%s' title='%s'></li>" % (f.read(), icon_title)

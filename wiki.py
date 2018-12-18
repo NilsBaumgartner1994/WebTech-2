@@ -77,28 +77,21 @@ class WikiApp(webserver.App):
 
     def updateRecently(self, cookies, response, pagename):
         pages = []
-        print("Name:", pagename)
         if "recently" in cookies:
-            print("Cookies:", cookies["recently"])
             pages = re.split("#", cookies["recently"])
-        print("Pages:", pages)
         if "" in pages:
             pages.remove("")
         if pagename in pages:
             pages.remove(pagename)
         pages.insert(0, pagename)
-        print("Pages:", pages, " ", len(pages))
         if len(pages) > 4:
             pages = pages[0:4]
-        print("Pages:", pages)
         cookiestring = ""
         for element in pages:
             if not element == "":
                 cookiestring += element
                 cookiestring += "#"
-        print("Cookieneu:", cookiestring)
         response.add_cookie(webserver.Cookie('recently', cookiestring, path='/'))#, expires=webserver.Cookie.expiry_date(-1)))
-        print("Pages:", pages)
         return pages[1:4]
 
     def show(self, request, response, pathmatch=None):
@@ -117,12 +110,9 @@ class WikiApp(webserver.App):
             return
 
         recently = self.updateRecently(request.cookies, response, pagename)
-        print("pages:", recently)
         recentlyLink = []
         for e in recently:
             recentlyLink.append(("/show/"+e,e))
-
-        print("Link:", recentlyLink)
 
         # show page
         response.send_template('wiki/show.tmpl', appendDict(request, {'text': self.markup(text), 'pagename': pagename, 'sidebar':self.getPages(), 'recently':recentlyLink}))

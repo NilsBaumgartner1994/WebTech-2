@@ -32,13 +32,17 @@ class IconEditorApp(webserver.App):
 
         icon_list = os.listdir("data")
         icons_html = "<ul>"
+        icons = []
         for icon_title in icon_list:
             #print(icon_title+"\n")
+            icons.append(("",icon_title))
+            pages.append((sitepath, page_title))
+            print("Icons:",icons)
             if icon_title != 'tools':
                 with open("data/"+icon_title, "r") as f:
                     icons_html += "<li class=icon-list-item><img src='%s' title='%s'></li>" % (f.read(), icon_title)
         icons_html += "</ul>"
-        response.send_template("iconeditor.tmpl", appendDict(request,{'icons': icons_html, 'tools' : tools_html}))
+        response.send_template("iconeditor.tmpl", appendDict(request,{'icons': icons_html, 'tools' : tools_html, 'sidebar':icon_list}))
 
     def saveZeichner(self, request, response, pathmatch):
         """Save Zeichner to Cookies"""

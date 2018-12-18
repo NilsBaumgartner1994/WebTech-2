@@ -40,7 +40,10 @@ class WikiApp(webserver.App):
         try:
             with open("wikidata/"+pagename, "r", encoding="utf-8", newline='') as f:
                 x = f.read()
-                return x
+                m = re.search('^(<icon>[\w\d]*</icon>)([\s\S]*)', x)
+                if m == None:
+                    return None, x
+                return m.group(1), m.group(2)
         except IOError:
             raise NoSuchPageError
 
@@ -103,7 +106,7 @@ class WikiApp(webserver.App):
             pagename = "main"  # default pagename
 
         try:
-            text = self.read_page(pagename)
+            icon, text = self.read_page(pagename)
         except NoSuchPageError:
             # redirect to edit view if page does not exist
             response.send_redirect("/edit/" + pagename)
@@ -126,7 +129,7 @@ class WikiApp(webserver.App):
             pagename = "main"
 
         try:
-            text = self.read_page(pagename)
+            icon, text = self.read_page(pagename)
         except NoSuchPageError:
             # use default text if page does not yet exist
             text = "This page is still empty. Fill it."
@@ -154,8 +157,13 @@ class WikiApp(webserver.App):
                                 'text':'save action needs wikitext'}, code=500)
             return
 
+        iconname = "tetasdb234"
+
         # ok, save text
         f = open("wikidata/" + pagename, "w", encoding='utf-8', newline='')
+        f.write("<icon>")
+        f.write(iconname)
+        f.write("</icon>")
         f.write(wikitext)
         f.close()
 

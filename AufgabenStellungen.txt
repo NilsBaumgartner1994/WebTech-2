@@ -10,9 +10,9 @@
 (): Der Anwendungsteil „Hilfe“ besteht aus einer einzelnen HTML-Seite, die Informationen zur Anwendung enthält. Diese Informationen können knapp ausfallen. (5%)
 
 (): Aufgabe 2: Erweiterung des Icon-Editors (25%)
-(): Erweitern Sie den Icon-Editor um folgende Eigenschaften / Möglichkeiten:
-(): Mit gedrückter Maustaste soll gezeichnet werden können, d.h. es soll nicht nötig sein, für jedes einzelne Pixel einzeln zu klicken. (5%)
-(): Mit Klick auf ein Icon in der Liste vorhandener Icons soll dieses Icon in den Editor geladen werden. (5%)
+(X): Erweitern Sie den Icon-Editor um folgende Eigenschaften / Möglichkeiten:
+(X): Mit gedrückter Maustaste soll gezeichnet werden können, d.h. es soll nicht nötig sein, für jedes einzelne Pixel einzeln zu klicken. (5%)
+(X): Mit Klick auf ein Icon in der Liste vorhandener Icons soll dieses Icon in den Editor geladen werden. (5%)
 (): Es soll drei Werkzeuge geben: Zeichnen, Füllen und Radieren: (10%)
 (): Es gibt einen Umschalter, der aus drei Icons mit Beschriftung besteht. Das jeweils ausgewählte Werkzeug wird hervorgehoben.
 (): Der Mauszeiger ändert sich mit ausgewähltem Werkzeug, wenn er sich innerhalb der Eingabe-Tabelle befindet (also dort, wo Pixel gesetzt werden können). Wählen Sie sinnvolle Zeiger für die drei Werkzeuge.

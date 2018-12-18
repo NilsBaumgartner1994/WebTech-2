@@ -17,13 +17,25 @@ class IconEditorApp(webserver.App):
     def show(self, request, response, pathmatch):
         """Show the editor. Provide list of saved icons."""
 
+        """Tools List"""
+        tool_list = os.listdir("data/tools")
+        tools_html = "<ul>"
+        for tool_title in tool_list:
+            with open("data/tools/" + tool_title, "r") as g:
+                tools_html += "<li class=tool-list-item><img src='%s' title='%s'></li>" % (g.read(), tool_title)
+        tools_html += "</ul>"
+        """End Toolslist"""
+
         icon_list = os.listdir("data")
         icons_html = "<ul>"
         for icon_title in icon_list:
-            with open("data/"+icon_title, "r") as f:
-                icons_html += "<li class=icon-list-item><img src='%s' title='%s'></li>" % (f.read(), icon_title)
+            print(icon_title+"\n")
+            if icon_title != 'tools':
+                with open("data/"+icon_title, "r") as f:
+                    icons_html += "<li class=icon-list-item><img src='%s' title='%s'></li>" % (f.read(), icon_title)
         icons_html += "</ul>"
-        response.send_template("iconeditor.tmpl", {'icons': icons_html})
+        response.send_template("iconeditor.tmpl", {'icons': icons_html, 'tools' : tools_html})
+
 
 
     def save(self, request, response, pathmatch):

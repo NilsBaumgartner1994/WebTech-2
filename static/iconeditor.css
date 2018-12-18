@@ -32,3 +32,9 @@ aside {
     list-style-type: none;
     padding-right: 10px;
 }
+
+.tool-list-item {
+    display: inline;
+    list-style-type: none;
+    padding-right: 10px;
+}

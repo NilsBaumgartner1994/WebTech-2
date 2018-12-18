@@ -1,10 +1,17 @@
 from server import webserver
 from iconeditor import IconEditorApp
 from wiki import WikiApp
-from server.webserver import StopProcessing
 from server.apps.static import StaticApp
 from server.middlewares import basicAuth
 
+class IconWikiApp(webserver.App):
+
+    def register_routes(self):
+        self.add_route("hilfe$", self.help)
+
+    def help(self, request, response, pathmatch):
+        """Show the help page."""
+        response.send_template("hilfe.tmpl")
 
 if __name__ == '__main__':
     auth = basicAuth.BasicAuthMiddleware()
@@ -15,6 +22,7 @@ if __name__ == '__main__':
 
     server.add_app(IconEditorApp())
     server.add_app(WikiApp())
+    server.add_app(IconWikiApp())
     server.add_app(StaticApp(prefix='static', path='static'))
 
     server.add_middleware(auth)

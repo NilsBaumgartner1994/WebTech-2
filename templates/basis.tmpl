@@ -41,7 +41,7 @@
         <li>Sekundärnavigation</li>
         {% for href, name in sidebar %}
         <li{% if name == pagename %} class="active"{% endif%}>
-        <a href="{{ href|e }}">{{ name|e }}</a></li>
+        <a href="{{ href|e }}">{{ name|safe }}</a></li>
         {% endfor %}
     </ul>
 </nav>

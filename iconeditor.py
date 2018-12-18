@@ -39,7 +39,7 @@ class IconEditorApp(webserver.App):
             if icon_title != 'tools' and icon_title != '.DS_Store':
                 with open("data/"+icon_title, "r") as f:
                     print("IConTitle: "+icon_title+"\n")
-                    side = "<img src='%s' title='%s'>" % (f.read(), icon_title)
+                    side = "<img src='%s' title='%s'> %s" % (f.read(), icon_title, icon_title)
                     icons.append(("", side))
                     icons_html += "<li class=icon-list-item><img src='%s' title='%s'></li>" % (f.read(), icon_title)
         icons_html += "</ul>"

@@ -4,6 +4,7 @@ from server import webserver
 from server.webserver import StopProcessing
 from server.apps.static import StaticApp
 from server.log import log
+from cookies import appendDict
 
 
 import os, re
@@ -23,7 +24,7 @@ class IconEditorApp(webserver.App):
             with open("data/"+icon_title, "r") as f:
                 icons_html += "<li class=icon-list-item><img src='%s' title='%s'></li>" % (f.read(), icon_title)
         icons_html += "</ul>"
-        response.send_template("iconeditor.tmpl", {'icons': icons_html})
+        response.send_template("iconeditor.tmpl", appendDict(request, {'icons': icons_html}))
 
 
     def save(self, request, response, pathmatch):

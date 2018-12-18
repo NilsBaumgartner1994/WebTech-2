@@ -3,8 +3,13 @@ from iconeditor import IconEditorApp
 from wiki import WikiApp
 from server.apps.static import StaticApp
 from server.middlewares import basicAuth
+from cookies import appendDict
 
 class IconWikiApp(webserver.App):
+
+
+    cookiename = 'nightmode'
+    nightmode = 'hell'
 
     def register_routes(self):
         self.add_route("hilfe$", self.help)
@@ -13,24 +18,25 @@ class IconWikiApp(webserver.App):
 
     def help(self, request, response, pathmatch):
         """Show the help page."""
-        response.send_template("hilfe.tmpl")
+        response.send_template("hilfe.tmpl", appendDict(request, {}))
 
     def settings(self, request, response, pathmatch):
         """Show the help page."""
-        response.send_template("settings.tmpl", {"nightmode":'hell'})
+        response.send_template("settings.tmpl", appendDict(request, {}))
 
     def save(self, request, response, pathmatch):
         """Evaluate request and construct response."""
         try:
             nightmode = request.params['nightmodebox']
         except KeyError:
-            # no text given: error
-            response.send_template("settingserror.tmpl",
-                                   {'error': 'Speicherfehler.',
-                                    'text': 'Einstellungen konnten nicht gespeichert werden.'}, code=500)
-            return
-        print("Nightmode:", nightmode)
+            nightmode = 'hell'
+
+        response.add_cookie(self.make_cookie(nightmode))
         response.send_redirect("/settings")
+
+    def make_cookie(self, value):
+        """Returns Cookie object for nightmode"""
+        return webserver.Cookie(self.cookiename, value, path='/', expires=webserver.Cookie.expiry_date(30))
 
 if __name__ == '__main__':
     auth = basicAuth.BasicAuthMiddleware()

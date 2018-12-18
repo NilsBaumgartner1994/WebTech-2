@@ -17,12 +17,12 @@ class IconWikiApp(webserver.App):
 
     def settings(self, request, response, pathmatch):
         """Show the help page."""
-        response.send_template("settings.tmpl")
+        response.send_template("settings.tmpl", {"nightmode":'hell'})
 
     def save(self, request, response, pathmatch):
         """Evaluate request and construct response."""
         try:
-            nightmode = request.params['nightmode']
+            nightmode = request.params['nightmodebox']
         except KeyError:
             # no text given: error
             response.send_template("settingserror.tmpl",
@@ -30,7 +30,7 @@ class IconWikiApp(webserver.App):
                                     'text': 'Einstellungen konnten nicht gespeichert werden.'}, code=500)
             return
         print("Nightmode:", nightmode)
-        response.send_redirect("/settings", {'nightmode': 'hell'})
+        response.send_redirect("/settings")
 
 if __name__ == '__main__':
     auth = basicAuth.BasicAuthMiddleware()

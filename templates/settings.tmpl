@@ -6,7 +6,11 @@
 {% block content %}
 	<h1>Einstellungen</h1>
 	<form action="/settingsSave" method="get">
-		<p><input name="nightmode" type="checkbox"/> Nachtmodus </p>
+	    {% if nightmode == 'hell' %}
+		    <p><input name="nightmodebox" type="checkbox"/> Nachtmodus </p>
+		{% else %}
+            <p><input name="nightmodebox" type="checkbox" checked/> Nachtmodus </p>
+        {% endif %}
 		<input type="submit" value="Speichern">
 	</form>
 {% endblock %}

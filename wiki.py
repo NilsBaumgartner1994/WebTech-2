@@ -14,6 +14,7 @@ from server.apps.static import StaticApp
 import re
 import os
 from cookies import appendDict
+from server.log import log
 
 
 class NoSuchPageError(Exception):
@@ -43,7 +44,10 @@ class WikiApp(webserver.App):
                 m = re.search('^(<icon>[\w\d]*</icon>)([\s\S]*)', x)
                 if m == None:
                     return None, x
-                return m.group(1), m.group(2)
+                icon = m.group(1)
+                icon = re.sub("<icon>", "", icon)
+                icon = re.sub("</icon>", "", icon)
+                return icon, m.group(2)
         except IOError:
             raise NoSuchPageError
 
@@ -75,6 +79,15 @@ class WikiApp(webserver.App):
         pages = []
         for page_title in page_list:
                 sitepath = "/show/"+page_title
+                icon, text = self.read_page(page_title)
+                if not icon == None:
+                    try:
+                        with open("data/" + icon, "r") as f:
+                            side = "<a class=icon-list-item><img src='%s' title='%s'></a> " % (f.read(), icon)
+                            page_title = side + page_title
+                    except IOError:
+                        pass
+
                 pages.append((sitepath, page_title))
         return pages
 
@@ -117,8 +130,19 @@ class WikiApp(webserver.App):
         for e in recently:
             recentlyLink.append(("/show/"+e,e))
 
+        if icon == None:
+            text = self.markup(text)
+        else:
+            try:
+                with open("data/"+icon, "r") as f:
+                    side = "<a class=icon-list-item><img src='%s' title='%s'></a> " % (f.read(), icon)
+                    text = side + self.markup(text)
+            except IOError:
+                log(3, "Icon not found.")
+                text = self.markup(text)
+
         # show page
-        response.send_template('wiki/show.tmpl', appendDict(request, {'text': self.markup(text), 'pagename': pagename, 'sidebar':self.getPages(), 'recently':recentlyLink}))
+        response.send_template('wiki/show.tmpl', appendDict(request, {'text': text, 'pagename': pagename, 'sidebar':self.getPages(), 'recently':recentlyLink}))
 
     def edit(self, request, response, pathmatch=None):
         """Display wiki page for editing."""
@@ -157,7 +181,7 @@ class WikiApp(webserver.App):
                                 'text':'save action needs wikitext'}, code=500)
             return
 
-        iconname = "tetasdb234"
+        iconname = "a1"
 
         # ok, save text
         f = open("wikidata/" + pagename, "w", encoding='utf-8', newline='')

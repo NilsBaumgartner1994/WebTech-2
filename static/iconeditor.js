@@ -10,7 +10,7 @@
 
 
 //Variablen
-var selected_tool = "pencil";
+var selected_tool;
 
 //mouse event wenn gezeichnet werden soll
 function move_over_pixel(event) {
@@ -25,9 +25,11 @@ function move_over_pixel(event) {
 
 //füge allen tools ein event listener an
 function create_click_event_for_tools() {
+
     var tools = document.getElementsByClassName("tool-list-item"); //hole items aus der definierten icon Liste
     for (var tool_item of tools) { //hier nicht in, da wir die werte wollen https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/for...of
         const tool = tool_item.childNodes[0]; //in dem listen element, befindet sich nur ein Bild //hier ggf. mehr sicherheit durch check
+        tool_selected(tool);
         //hier ist const notwendig, da sonst das zuletzt genommene Object übergeben wird, wir wollen die "Referenz" uns merken
         tool.addEventListener("click", function() {
             tool_selected(tool);
@@ -36,8 +38,11 @@ function create_click_event_for_tools() {
 }
 
 function tool_selected(tool){
-    selected_tool = tool.title;
-    alert("Tool clicked: "+tool.title);
+    if(selected_tool != undefined){
+        selected_tool.border = 0; //remove border from old
+    }
+    selected_tool = tool; //save new tool
+    tool.border=2; //make border
 }
 
 

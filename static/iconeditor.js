@@ -259,10 +259,10 @@ function preview() {
 
 
 function loadFromCookie(){
-    console.log("Loaded from Cookie: "+document.cookie);
+    //console.log("Loaded from Cookie: "+document.cookie);
     selected_tool = getCookie("icontool");
-    console.log("Realy? Cookie: "+selected_tool);
-    console.log("Good, then set it!");
+    //console.log("Realy? Cookie: "+selected_tool);
+    //console.log("Good, then set it!");
     tool_selected(selected_tool);
 }
 

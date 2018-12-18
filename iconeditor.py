@@ -23,7 +23,7 @@ class IconEditorApp(webserver.App):
         tools_html = "<ul>"
         for tool_title in tool_list:
             with open("data/tools/" + tool_title, "r") as g:
-                tools_html += "<li class=tool-list-item><img src='%s' title='%s'></li>" % (g.read(), tool_title)
+                tools_html += "<li class=tool-list-item><img src='%s' title='%s' id='tool-%s' border='0'></li>" % (g.read(), tool_title,tool_title)
         tools_html += "</ul>"
         """End Toolslist"""
 

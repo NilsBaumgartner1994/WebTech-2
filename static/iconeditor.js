@@ -10,7 +10,7 @@
 
 
 //Variablen
-var selected_tool;
+var selected_tool = "";
 
 //mouse event wenn gezeichnet werden soll
 function move_over_pixel(event) {
@@ -86,21 +86,23 @@ function create_click_event_for_tools() {
     var tools = document.getElementsByClassName("tool-list-item"); //hole items aus der definierten icon Liste
     for (var tool_item of tools) { //hier nicht in, da wir die werte wollen https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/for...of
         const tool = tool_item.childNodes[0]; //in dem listen element, befindet sich nur ein Bild //hier ggf. mehr sicherheit durch check
-        tool_selected(tool);
+        tool_selected(tool.id);
         //hier ist const notwendig, da sonst das zuletzt genommene Object übergeben wird, wir wollen die "Referenz" uns merken
         tool.addEventListener("click", function() {
-            tool_selected(tool);
+            tool_selected(tool.id);
         });
     }
 }
 
 //Setze ein Gewähltes Tool, soll ein Bild sein, da hier der Rahmen gesetzt wird //Nicht so sicher
 function tool_selected(tool){
-    if(selected_tool != undefined){
-        selected_tool.border = 0; //remove border from old
+    if(selected_tool != "" && selected_tool != undefined){
+        var image = document.getElementById(selected_tool);
+        image.border = 0; //remove border from old
+        console.log(image);
     }
     selected_tool = tool; //save new tool
-    selected_tool.border=2; //make border
+    document.getElementById(tool).border = 2; //make border
 
     //Setze entsprechenden Cursor für alle Pixel/Zellen
     if(isEraserSelected()){
@@ -117,13 +119,13 @@ function tool_selected(tool){
 
 //Prüfen welches Tool verwendet wird
 function isPencilSelected(){
-    return selected_tool.title == "pencil";
+    return selected_tool == "tool-pencil";
 }
 function isEraserSelected(){
-    return selected_tool.title == "eraser";
+    return selected_tool == "tool-eraser";
 }
 function isFillSelected(){
-    return selected_tool.title == "fill";
+    return selected_tool == "tool-fill";
 }
 
 //Setze für alle Pixel Zellen einen Cursor Typ

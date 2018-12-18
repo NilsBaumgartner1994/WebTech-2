@@ -10,7 +10,7 @@
 
 
 //Variablen
-var selected_tool = "";
+var selected_tool;
 
 //mouse event wenn gezeichnet werden soll
 function move_over_pixel(event) {
@@ -86,7 +86,7 @@ function create_click_event_for_tools() {
     var tools = document.getElementsByClassName("tool-list-item"); //hole items aus der definierten icon Liste
     for (var tool_item of tools) { //hier nicht in, da wir die werte wollen https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/for...of
         const tool = tool_item.childNodes[0]; //in dem listen element, befindet sich nur ein Bild //hier ggf. mehr sicherheit durch check
-        tool_selected(tool.id);
+        //tool_selected(tool.id);
         //hier ist const notwendig, da sonst das zuletzt genommene Object übergeben wird, wir wollen die "Referenz" uns merken
         tool.addEventListener("click", function() {
             tool_selected(tool.id);
@@ -96,13 +96,21 @@ function create_click_event_for_tools() {
 
 //Setze ein Gewähltes Tool, soll ein Bild sein, da hier der Rahmen gesetzt wird //Nicht so sicher
 function tool_selected(tool){
-    if(selected_tool != "" && selected_tool != undefined){
+    if(!isValidToolName(tool)){
+        tool = "tool-pencil";
+    }
+    console.log("Tool: "+tool);
+
+    if(isValidToolName(selected_tool)){
         var image = document.getElementById(selected_tool);
         image.border = 0; //remove border from old
-        console.log(image);
+        //console.log(image);
     }
+
     selected_tool = tool; //save new tool
     document.getElementById(tool).border = 2; //make border
+
+    saveIntoCookie();
 
     //Setze entsprechenden Cursor für alle Pixel/Zellen
     if(isEraserSelected()){
@@ -128,6 +136,10 @@ function isFillSelected(){
     return selected_tool == "tool-fill";
 }
 
+function isValidToolName(name){
+    return name == "tool-pencil" || name == "tool-eraser" || name == "tool-fill";
+}
+
 //Setze für alle Pixel Zellen einen Cursor Typ
 function set_cursor_on_pixels(cursor_type) {
     var pixel_cells = document.getElementsByClassName("icon-pixel"); //hole alle Pixel
@@ -146,7 +158,7 @@ function create_click_event_for_icons() {
     for (var icon_item of icons) { //hier nicht in, da wir die werte wollen https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/for...of
 
         const icon = icon_item.childNodes[0]; //in dem listen element, befindet sich nur ein Bild //hier ggf. mehr sicherheit durch check
-        console.log(icon.title);
+        //console.log(icon.title);
         //hier ist const notwendig, da sonst das zuletzt genommene Object übergeben wird, wir wollen die "Referenz" uns merken
         icon.addEventListener("click", function() {
             load_icon_into_canvas(icon);
@@ -247,12 +259,49 @@ function preview() {
 }
 
 
+function loadFromCookie(){
+    console.log("Loaded from Cookie: "+document.cookie);
+    selected_tool = getCookie("icontool");
+    console.log("Realy? Cookie: "+selected_tool);
+    console.log("Good, then set it!");
+    tool_selected(selected_tool);
+}
+
+function getCookie(cname) { //from https://www.w3schools.com/js/js_cookies.asp
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function saveIntoCookie(){
+    document.cookie = "icontool="+selected_tool;
+
+    console.log("Before Save the cookie !: "+document.cookie);
+    document.cookie = "nightmode=on; recently=main#; icontool=tool-fill";
+    console.log("After Save the cookie !: "+document.cookie);
+}
+
+
 window.addEventListener("DOMContentLoaded", function () {
     validate_init();  // fieser Hack!
+    console.log("America first!");
+    loadFromCookie();                                                                                                   //------------------------------
     create_table();
     create_color_picker();
     create_click_event_for_icons();                                                                                     // ------------------------------
-    create_click_event_for_tools();                                                                                     // ------------------------------
+    create_click_event_for_tools();
+
     preview();
+    console.log(document.cookie);
 });
 

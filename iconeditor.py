@@ -12,6 +12,9 @@ import os, re
 class IconEditorApp(webserver.App):
 
     def register_routes(self):
+        self.add_route("iconeditor/saveZeichner$", self.saveZeichner)
+        self.add_route("iconeditor/saveFueller$", self.saveFueller)
+        self.add_route("iconeditor/saveRadierer$", self.saveRadierer)
         self.add_route("iconeditor$", self.show)
         self.add_route("iconeditor/save$", self.save)
 
@@ -37,7 +40,22 @@ class IconEditorApp(webserver.App):
         icons_html += "</ul>"
         response.send_template("iconeditor.tmpl", appendDict(request,{'icons': icons_html, 'tools' : tools_html}))
 
+    def saveZeichner(self, request, response, pathmatch):
+        """Save Zeichner to Cookies"""
+        self.saveTool(response, 1)
 
+    def saveFueller(self, request, response, pathmatch):
+        """Save Fueller to Cookies"""
+        self.saveTool(response, 2)
+
+    def saveRadierer(self, request, response, pathmatch):
+        """Save Radierer to Cookies"""
+        self.saveTool(response, 3)
+
+    def saveTool(self, response, tool):
+        """Save selected Tool to Cookies"""
+        response.add_cookie(webserver.Cookie('icontool', tool, path='/'))  # , expires=webserver.Cookie.expiry_date(-1)))
+        response.send_redirect('/iconeditor')
 
     def save(self, request, response, pathmatch):
         """Save base64-encoded representation of icon pixels to a file."""

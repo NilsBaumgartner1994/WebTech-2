@@ -14,11 +14,11 @@
 (X): Mit gedrückter Maustaste soll gezeichnet werden können, d.h. es soll nicht nötig sein, für jedes einzelne Pixel einzeln zu klicken. (5%)
 (X): Mit Klick auf ein Icon in der Liste vorhandener Icons soll dieses Icon in den Editor geladen werden. (5%)
 (X): Es soll drei Werkzeuge geben: Zeichnen, Füllen und Radieren: (10%)
-(): Es gibt einen Umschalter, der aus drei Icons mit Beschriftung besteht. Das jeweils ausgewählte Werkzeug wird hervorgehoben.
-(): Der Mauszeiger ändert sich mit ausgewähltem Werkzeug, wenn er sich innerhalb der Eingabe-Tabelle befindet (also dort, wo Pixel gesetzt werden können). Wählen Sie sinnvolle Zeiger für die drei Werkzeuge.
-(): Das Zeichen-Werkzeug ist das bereits vorhandene Werkzeug.
-(): Das Radier-Werkzeug funktioniert wie das Zeichenwerkzeug, „zeichnet“ aber immer in weiß.
-(): Das Füll-Werkzeug füllt rekursiv die aktuelle Zelle und alle angrenzenden Zellen gleicher Farbe mit der aktuellen Zeichenfarbe. Rekursiv bedeutet: Das Füllverfahren füllt ausgehend vom gewählten Pixel die zusammenhängende Fläche gleicher Farbe. Die Implementation muss nicht rekursiv erfolgen.
+(X): Es gibt einen Umschalter, der aus drei Icons mit Beschriftung besteht. Das jeweils ausgewählte Werkzeug wird hervorgehoben.
+(X): Der Mauszeiger ändert sich mit ausgewähltem Werkzeug, wenn er sich innerhalb der Eingabe-Tabelle befindet (also dort, wo Pixel gesetzt werden können). Wählen Sie sinnvolle Zeiger für die drei Werkzeuge.
+(X): Das Zeichen-Werkzeug ist das bereits vorhandene Werkzeug.
+(X): Das Radier-Werkzeug funktioniert wie das Zeichenwerkzeug, „zeichnet“ aber immer in weiß.
+(X): Das Füll-Werkzeug füllt rekursiv die aktuelle Zelle und alle angrenzenden Zellen gleicher Farbe mit der aktuellen Zeichenfarbe. Rekursiv bedeutet: Das Füllverfahren füllt ausgehend vom gewählten Pixel die zusammenhängende Fläche gleicher Farbe. Die Implementation muss nicht rekursiv erfolgen.
 (): Das ausgewählte Werkzeug soll in einem Cookie gespeichert werden. Beim Laden bzw. Neuladen des Iconeditors soll also das vorher ausgewählte Werkzeug immer noch ausgewählt sein. (5%)
 
 (): Aufgabe 3: Erweiterung des Wikis (25%)

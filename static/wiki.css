@@ -23,3 +23,13 @@ body {
 	margin: 15px;
 	text-align: right;
 }
+
+.recently{
+	display: block;
+	position: relative;
+	display: block;
+	background-color: inherit;
+	color: inherit;
+	margin: 15px;
+	width: 100%;
+}

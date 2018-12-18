@@ -17,4 +17,13 @@
 		&middot;
 		<a href="/edit/{{pagename}}">Edit</a>
 	</div>
+	<div class="recently">
+    Zuletzt besucht:
+    <ul>
+        {% for href, name in recently %}
+        <li{% if name == pagename %} class="active"{% endif%}>
+        <a href="{{ href|e }}">{{ name|e }}</a></li>
+        {% endfor %}
+    </ul>
+	</div>
 {% endblock %}

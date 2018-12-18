@@ -67,13 +67,39 @@ class WikiApp(webserver.App):
 
         return text
 
-    def getsites(self):
-        site_list = os.listdir("wikidata")
-        sites = []
-        for site_title in site_list:
-                sitepath = "/show/"+site_title
-                sites.append((sitepath, site_title))
-        return sites
+    def getPages(self):
+        page_list = os.listdir("wikidata")
+        pages = []
+        for page_title in page_list:
+                sitepath = "/show/"+page_title
+                pages.append((sitepath, page_title))
+        return pages
+
+    def updateRecently(self, cookies, response, pagename):
+        pages = []
+        print("Name:", pagename)
+        if "recently" in cookies:
+            print("Cookies:", cookies["recently"])
+            pages = re.split("#", cookies["recently"])
+        print("Pages:", pages)
+        if "" in pages:
+            pages.remove("")
+        if pagename in pages:
+            pages.remove(pagename)
+        pages.insert(0, pagename)
+        print("Pages:", pages, " ", len(pages))
+        if len(pages) > 4:
+            pages = pages[0:4]
+        print("Pages:", pages)
+        cookiestring = ""
+        for element in pages:
+            if not element == "":
+                cookiestring += element
+                cookiestring += "#"
+        print("Cookieneu:", cookiestring)
+        response.add_cookie(webserver.Cookie('recently', cookiestring, path='/'))#, expires=webserver.Cookie.expiry_date(-1)))
+        print("Pages:", pages)
+        return pages[1:4]
 
     def show(self, request, response, pathmatch=None):
         """Evaluate request and construct response."""
@@ -90,8 +116,16 @@ class WikiApp(webserver.App):
             response.send_redirect("/edit/" + pagename)
             return
 
+        recently = self.updateRecently(request.cookies, response, pagename)
+        print("pages:", recently)
+        recentlyLink = []
+        for e in recently:
+            recentlyLink.append(("/show/"+e,e))
+
+        print("Link:", recentlyLink)
+
         # show page
-        response.send_template('wiki/show.tmpl', appendDict(request, {'text': self.markup(text), 'pagename': pagename, 'sidebar':self.getsites()}))
+        response.send_template('wiki/show.tmpl', appendDict(request, {'text': self.markup(text), 'pagename': pagename, 'sidebar':self.getPages(), 'recently':recentlyLink}))
 
     def edit(self, request, response, pathmatch=None):
         """Display wiki page for editing."""
@@ -107,10 +141,8 @@ class WikiApp(webserver.App):
             # use default text if page does not yet exist
             text = "This page is still empty. Fill it."
 
-        sites = ()
-
         # fill template and show
-        response.send_template('wiki/edit.tmpl', appendDict(request, {'text': text, 'pagename': pagename, 'sidebar':self.getsites()}))
+        response.send_template('wiki/edit.tmpl', appendDict(request, {'text': text, 'pagename': pagename, 'sidebar':self.getPages()}))
 
     def save(self, request, response, pathmatch=None):
         """Evaluate request and construct response."""

@@ -1,6 +1,6 @@
 __author__ = 'Tobias'
 
-_log_level = 3  # from 0=None to 5=extremely verbose
+_log_level = 0  # from 0=None to 5=extremely verbose
 
 
 def log(level, msg):

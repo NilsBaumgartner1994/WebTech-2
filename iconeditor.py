@@ -42,6 +42,7 @@ class IconEditorApp(webserver.App):
                     icons.append(("", side))
                     #icons_html += "<li class=icon-list-item><img src='%s' title='%s'></li>" % (f.read(), icon_title)
         icons_html += "</ul>"
+        response.add_cookie(webserver.Cookie('icontool', "default", path='/'))  # , expires=webserver.Cookie.expiry_date(-1)))
         response.send_template("iconeditor.tmpl", appendDict(request,{'icons': icons_html, 'tools' : tools_html, 'sidebar':icons}))
 
     def saveZeichner(self, request, response, pathmatch):

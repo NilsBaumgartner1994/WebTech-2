@@ -1,0 +1,12 @@
+{% extends 'basis.tmpl' %}
+{% set active_page = 'settings' %}
+
+{% block title %}Einstellungen{% endblock %}
+
+{% block content %}
+	<h1>Einstellungen</h1>
+	<form action="/settingsSave" method="get">
+		<p><input name="nightmode" type="checkbox"/> Nachtmodus </p>
+		<input type="submit" value="Speichern">
+	</form>
+{% endblock %}

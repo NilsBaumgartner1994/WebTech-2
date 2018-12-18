@@ -82,7 +82,7 @@ class WikiApp(webserver.App):
             return
 
         # show page
-        response.send_template('wiki/show.html', {'text': self.markup(text), 'pagename': pagename})
+        response.send_template('wiki/show.tmpl', {'text': self.markup(text), 'pagename': pagename})
 
     def edit(self, request, response, pathmatch=None):
         """Display wiki page for editing."""
@@ -99,7 +99,7 @@ class WikiApp(webserver.App):
             text = "This page is still empty. Fill it."
 
         # fill template and show
-        response.send_template('wiki/edit.html', {'text': text, 'pagename': pagename})
+        response.send_template('wiki/edit.tmpl', {'text': text, 'pagename': pagename})
 
     def save(self, request, response, pathmatch=None):
         """Evaluate request and construct response."""
@@ -108,7 +108,7 @@ class WikiApp(webserver.App):
             pagename = pathmatch.group('pagename')
         except IndexError:
             # no pagename given: error
-            response.send_template("wiki/wikierror.html",
+            response.send_template("wiki/wikierror.tmpl",
                                    {'error': 'No pagename given.', 'text': 'save action needs pagename'}, code=500)
             return
 
@@ -116,7 +116,7 @@ class WikiApp(webserver.App):
             wikitext = request.params['wikitext']
         except KeyError:
             # no text given: error
-            response.send_template("templates/wiki/wikierror.html",
+            response.send_template("wiki/wikierror.tmpl",
                                {'error':'No wikitext given.',
                                 'text':'save action needs wikitext'}, code=500)
             return

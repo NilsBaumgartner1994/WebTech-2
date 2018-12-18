@@ -34,8 +34,8 @@ a { text-decoration: none; }
 
 .user { padding: 2px; }
 
-section {
-    margin-left: 350px;
+section{
+    padding: 20px;
     font-family: "Vollkorn", sans-serif;
 }
 
@@ -51,6 +51,9 @@ article > header {
 }
 
 @media only screen and (min-width: 1024px) {
+section{
+    margin-left: 270px;
+}
 .secondary_navigation{
     position: fixed;
     height: 100%;

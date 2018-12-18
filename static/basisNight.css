@@ -1,19 +1,38 @@
+html {
+    background-color: black;
+    color: white;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+input[type=submit] {
+    background-color: black;
+    color: white;
+}
+
+section{
+    border: 1px solid white;
+}
 
 nav {}
 .main_navigation{
-    background-color: #8f7a66;
+    background-color: #327AC0;
     color: white;
 }
 
 .secondary_navigation{
-    background-color: lightgoldenrodyellow;
+    background-color: #05052D;
+    color: white;
 }
 
-a:visited { color: black; }
-a:link { color: black; }
+a:visited { color: white; }
+a:link { color: white; }
 
 .user { border: 1px grey solid; }
 
 .active {
-    background-color: lightgoldenrodyellow;
+    background-color: #05052D;
 }

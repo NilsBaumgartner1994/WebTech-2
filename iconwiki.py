@@ -8,10 +8,29 @@ class IconWikiApp(webserver.App):
 
     def register_routes(self):
         self.add_route("hilfe$", self.help)
+        self.add_route("settings$", self.settings)
+        self.add_route("settingsSave$", self.save)
 
     def help(self, request, response, pathmatch):
         """Show the help page."""
         response.send_template("hilfe.tmpl")
+
+    def settings(self, request, response, pathmatch):
+        """Show the help page."""
+        response.send_template("settings.tmpl")
+
+    def save(self, request, response, pathmatch):
+        """Evaluate request and construct response."""
+        try:
+            nightmode = request.params['nightmode']
+        except KeyError:
+            # no text given: error
+            response.send_template("settingserror.tmpl",
+                                   {'error': 'Speicherfehler.',
+                                    'text': 'Einstellungen konnten nicht gespeichert werden.'}, code=500)
+            return
+        print("Nightmode:", nightmode)
+        response.send_redirect("/settings", {'nightmode': 'hell'})
 
 if __name__ == '__main__':
     auth = basicAuth.BasicAuthMiddleware()

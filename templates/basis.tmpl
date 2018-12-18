@@ -6,6 +6,13 @@
     {% block head %}
     {% endblock %}
     <link rel="stylesheet" href="/static/basis.css">
+    {% set nightmode = nightmode|default('hell') -%}
+    {% if nightmode == 'hell' %}
+        <link rel="stylesheet" href="/static/basisDay.css">
+    {% else %}
+        <link rel="stylesheet" href="/static/basisNight.css">
+    {% endif %}
+
 
 </head>
 <body>
@@ -13,7 +20,8 @@
     {% set navigation_bar = [
     ('/', 'wiki', 'Wiki'),
     ('/iconeditor', 'iconeditor', 'Icon-Editor'),
-    ('/hilfe', 'hilfe', 'Hilfe')
+    ('/hilfe', 'hilfe', 'Hilfe'),
+    ('/settings', 'settings', 'Einstellungen')
     ] -%}
     {% set active_page = active_page|default('wiki') -%}
 

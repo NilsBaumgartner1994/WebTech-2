@@ -1,21 +1,25 @@
-body { margin: 50px;
-       background: #ddd;
-       border: 1px solid black;
+body {
+	margin: 50px;
 }
 
 .wikitext {
-	background: white;
+	background-color: inherit;
+	color: inherit;
 	padding: 10px;
 	margin: 10px;
 }
 
 .wikiedit {
+	background-color: inherit;
+	color: inherit;
 	display: block;
 	min-height: 20em;
 	width: 80%;
 }
 
 .actions {
+	background-color: inherit;
+	color: inherit;
 	margin: 15px;
 	text-align: right;
 }

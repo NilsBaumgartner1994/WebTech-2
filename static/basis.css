@@ -7,17 +7,6 @@ nav {}
     top: 0;
     padding: 10px;
     width:100%;
-    background-color: #8f7a66;
-    color: white;
-    font-family: "Ubuntu", sans-serif;
-    font-weight: bold;
-}
-.secondary_navigation{
-    position: fixed;
-    padding: 10px;
-    height: 100%;
-    width: 250px;
-    background-color: lightgoldenrodyellow;
     font-family: "Ubuntu", sans-serif;
     font-weight: bold;
 }
@@ -29,6 +18,12 @@ nav.main_navigation ul li {
     font-style: italic
 }
 
+.secondary_navigation{
+    padding: 10px;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: bold;
+}
+
 nav.secondary_navigation ul li {
     display: block;
     padding:10px;
@@ -36,17 +31,11 @@ nav.secondary_navigation ul li {
 }
 
 a { text-decoration: none; }
-a:visited { color: black; }
-a:link { color: black; }
 
-.user { border: 1px grey solid; padding: 2px; }
+.user { padding: 2px; }
 
-.active {
-    background-color: lightgoldenrodyellow;
-}
-
-section {
-    margin-left: 350px;
+section{
+    padding: 20px;
     font-family: "Vollkorn", sans-serif;
 }
 
@@ -60,3 +49,22 @@ article > header {
     font-size: 2em;
     margin-bottom: 1em;
 }
+
+@media only screen and (min-width: 1024px) {
+section{
+    margin-left: 270px;
+}
+.secondary_navigation{
+    position: fixed;
+    height: 100%;
+    width: 250px;
+}
+}
+
+@media only screen and (max-width: 1023px) {
+.secondary_navigation{
+    top: 0;
+    width:100%;
+}
+}
+

@@ -1,17 +1,50 @@
 from server import webserver
 from iconeditor import IconEditorApp
 from wiki import WikiApp
-from server.webserver import StopProcessing
 from server.apps.static import StaticApp
+from server.middlewares import basicAuth
 
+class IconWikiApp(webserver.App):
+
+    def register_routes(self):
+        self.add_route("hilfe$", self.help)
+        self.add_route("settings$", self.settings)
+        self.add_route("settingsSave$", self.save)
+
+    def help(self, request, response, pathmatch):
+        """Show the help page."""
+        response.send_template("hilfe.tmpl")
+
+    def settings(self, request, response, pathmatch):
+        """Show the help page."""
+        response.send_template("settings.tmpl", {"nightmode":'hell'})
+
+    def save(self, request, response, pathmatch):
+        """Evaluate request and construct response."""
+        try:
+            nightmode = request.params['nightmodebox']
+        except KeyError:
+            # no text given: error
+            response.send_template("settingserror.tmpl",
+                                   {'error': 'Speicherfehler.',
+                                    'text': 'Einstellungen konnten nicht gespeichert werden.'}, code=500)
+            return
+        print("Nightmode:", nightmode)
+        response.send_redirect("/settings")
 
 if __name__ == '__main__':
+    auth = basicAuth.BasicAuthMiddleware()
+
     server = webserver.Webserver()
     server.set_templating("jinja2")
     server.set_templating_path("templates")
 
     server.add_app(IconEditorApp())
     server.add_app(WikiApp())
+    server.add_app(IconWikiApp())
     server.add_app(StaticApp(prefix='static', path='static'))
+
+    server.add_middleware(auth)
+    auth.add_key("user", "pass")
 
     server.serve()

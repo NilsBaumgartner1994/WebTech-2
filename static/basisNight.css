@@ -1,0 +1,19 @@
+
+nav {}
+.main_navigation{
+    background-color: #8f7a66;
+    color: white;
+}
+
+.secondary_navigation{
+    background-color: lightgoldenrodyellow;
+}
+
+a:visited { color: black; }
+a:link { color: black; }
+
+.user { border: 1px grey solid; }
+
+.active {
+    background-color: lightgoldenrodyellow;
+}

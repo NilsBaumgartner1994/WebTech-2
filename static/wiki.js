@@ -1,14 +1,20 @@
 function addListenersForIcons(){
-    var icons = document.getElementsByClassName("icon-list-item"); //hole items aus der definierten icon Liste
+    var icons = document.getElementsByClassName("wikiicons-items"); //hole items aus der definierten icon Liste
     for (var icon_item of icons) { //hier nicht in, da wir die werte wollen https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/for...of
 
         const icon = icon_item.childNodes[0]; //in dem listen element, befindet sich nur ein Bild //hier ggf. mehr sicherheit durch check
-        //console.log(icon.title);
+        console.log(icon.title);
         //hier ist const notwendig, da sonst das zuletzt genommene Object übergeben wird, wir wollen die "Referenz" uns merken
         icon.addEventListener("click", function() {
-            load_icon_into_canvas(icon);
+            setIconTextArea(icon.title);
         });
     }
+}
+
+function setIconTextArea(text){
+    var textArea = document.getElementsByClassName("wikiicon");
+    console.log(textArea[0]);
+    textArea[0].value = text;
 }
 
 

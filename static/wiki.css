@@ -9,6 +9,13 @@ body {
 	margin: 10px;
 }
 
+.wikiicon {
+	background-color: inherit;
+	color: inherit;
+	padding: 10px;
+	margin: 10px;
+}
+
 .wikiedit {
 	background-color: inherit;
 	color: inherit;

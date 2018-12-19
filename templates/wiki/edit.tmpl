@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-	<h1><img src='{{ iconcode|safe }}' title='{{pageicon|safe}}'>{{pagename}}</h1>
+	<h1><img src='{{ iconcode|safe }}' title='{{pageicon|safe}}'> {{pagename}}</h1>
 	<div class="wikitext">
 		<ul>
 		{% for iconbase64, iconname in icon_list %}

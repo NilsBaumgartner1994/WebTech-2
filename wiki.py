@@ -158,13 +158,17 @@ class WikiApp(webserver.App):
 
         icon_list = os.listdir("data")
         icons = []
+        iconcode = ""
         for icon_title in icon_list:
             if icon_title != 'tools' and icon_title != '.DS_Store':
                 with open("data/" + icon_title, "r") as f:
-                    icons.append((f.read(), icon_title))
+                    x = f.read()
+                    icons.append((x, icon_title))
+                    if icon_title == icon:
+                        iconcode = x
 
         # fill template and show
-        response.send_template('wiki/edit.tmpl', appendDict(request, {'text': text, 'pageicon':icon, 'pagename': pagename, 'sidebar':self.getPages(), 'icon_list':icons}))
+        response.send_template('wiki/edit.tmpl', appendDict(request, {'text': text, 'iconcode':iconcode, 'pageicon':icon, 'pagename': pagename, 'sidebar':self.getPages(), 'icon_list':icons}))
 
     def save(self, request, response, pathmatch=None):
         """Evaluate request and construct response."""

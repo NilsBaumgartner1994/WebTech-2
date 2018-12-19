@@ -3,6 +3,8 @@
 
 {% block title %}Edit {{pagename}}{% endblock %}
 {% block head %}
+    <script src="/static/validate.js"></script>
+    <script src="/static/wiki.js"></script>
 	<link rel="stylesheet" type="text/css" href="/static/wiki.css">
 {% endblock %}
 
@@ -16,7 +18,7 @@
 		</form>
 		<ul>
 		{% for iconbase64, iconname in icon_list %}
-        <li class=icon-list-item><img src='{{ iconbase64|safe }}' title='{{ iconname|safe }}'>{{ iconname|safe }}</li>
+        <li class=icon-list-item><img src='{{ iconbase64|safe }}' title='{{ iconname|safe }}'></li>
         {% endfor %}
         </ul>
 	</div>

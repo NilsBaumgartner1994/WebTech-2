@@ -156,8 +156,15 @@ class WikiApp(webserver.App):
             # use default text if page does not yet exist
             text = "This page is still empty. Fill it."
 
+        icon_list = os.listdir("data")
+        icons = []
+        for icon_title in icon_list:
+            if icon_title != 'tools' and icon_title != '.DS_Store':
+                with open("data/" + icon_title, "r") as f:
+                    icons.append((f.read(), icon_title))
+
         # fill template and show
-        response.send_template('wiki/edit.tmpl', appendDict(request, {'text': text, 'pagename': pagename, 'sidebar':self.getPages()}))
+        response.send_template('wiki/edit.tmpl', appendDict(request, {'text': text, 'pagename': pagename, 'sidebar':self.getPages(), 'icon_list':icons}))
 
     def save(self, request, response, pathmatch=None):
         """Evaluate request and construct response."""

@@ -164,7 +164,7 @@ class WikiApp(webserver.App):
                     icons.append((f.read(), icon_title))
 
         # fill template and show
-        response.send_template('wiki/edit.tmpl', appendDict(request, {'text': text, 'pagename': pagename, 'sidebar':self.getPages(), 'icon_list':icons}))
+        response.send_template('wiki/edit.tmpl', appendDict(request, {'text': text, 'pageicon':icon, 'pagename': pagename, 'sidebar':self.getPages(), 'icon_list':icons}))
 
     def save(self, request, response, pathmatch=None):
         """Evaluate request and construct response."""

@@ -17,8 +17,8 @@
         {% endfor %}
         </ul>
         <form action="/save/{{pagename}}" method="post">
+        	<textarea class="wikiicon" name="wikiicon">{{pageicon|safe}}</textarea>
 			<textarea class="wikiedit" name="wikitext">{{text|safe}}</textarea>
-			<textarea class="wikiicon" name="wikiicon">{{wikiicon|safe}}</textarea>
 			<br>
 			<input type="submit" value="save">
 		</form>

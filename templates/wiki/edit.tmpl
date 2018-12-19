@@ -14,6 +14,11 @@
 			<textarea class="wikiicon" name="wikiicon">{{wikiicon|safe}}</textarea>
 			<input type="submit" value="save">
 		</form>
+		<ul>
+		{% for iconbase64, iconname in icon_list %}
+        <li class=icon-list-item><img src='{{ iconbase64|safe }}' title='{{ iconname|safe }}'>{{ iconname|safe }}</li>
+        {% endfor %}
+        </ul>
 	</div>
 	<div class="actions">
 		<a href="/show/{{pagename}}">cancel</a>

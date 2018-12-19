@@ -9,6 +9,12 @@ body {
 	margin: 10px;
 }
 
+.icon-list-item {
+    display: inline;
+    list-style-type: none;
+    padding-right: 10px;
+}
+
 .wikiicon {
 	background-color: inherit;
 	color: inherit;

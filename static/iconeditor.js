@@ -40,13 +40,15 @@ function setPixelDependingOnTool(pixel){
     preview(); //zeige ergebnis in preview
 }
 
+//if earaser used on pixel
 function onPixelUseEraser(pixel){
-    pixel.style.backgroundColor = "rgb(255,255,255)";
+    pixel.style.backgroundColor = "rgb(255,255,255)"; //make it white
 }
 
+//if pencil used on pixel
 function onPixelUsePencil(pixel){
-    var currentColor=document.getElementById("current-color").style.backgroundColor;
-    pixel.style.backgroundColor = currentColor;
+    var currentColor=document.getElementById("current-color").style.backgroundColor; //get the current color
+    pixel.style.backgroundColor = currentColor; //set the color on pixel
 }
 
 //Benutze die Füll Methode an einen Pixel
@@ -184,6 +186,37 @@ function load_icon_into_canvas(icon){
     preview(); //fülle das kleine preview bild
 }
 
+//load tool from cookie
+function loadFromCookie(){
+    //console.log("Loaded from Cookie: "+document.cookie);
+    selected_tool = getCookie("icontool");
+    //console.log("Realy? Cookie: "+selected_tool);
+    //console.log("Good, then set it!");
+    tool_selected(selected_tool);
+}
+
+//get a value from cookie at given name
+function getCookie(cname) { //from https://www.w3schools.com/js/js_cookies.asp
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';'); //split cookie
+  for(var i = 0; i <ca.length; i++) { //for all keys
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length); //return searched value
+    }
+  }
+  return ""; //return empty if none found
+}
+
+//save the selected tool in cookie
+function saveIntoCookie(){
+    document.cookie = "icontool="+selected_tool;
+}
+
 //////////////////////////
 // Änderungen Ende ///////
 //////////////////////////
@@ -204,8 +237,8 @@ function create_table() {
             td.className = "icon-pixel";
             td.id="pixel-"+ i + "-" + j;
             td.style.backgroundColor = "rgb(255,255,255)"; // no dash - css attribute name becomes camelCase
-            td.addEventListener("click", setpixel);
-            td.addEventListener("mousemove", move_over_pixel);                                                          // ------------------------------
+            td.addEventListener("click", setpixel); //adds click listener on pixel                                      // ---------------
+            td.addEventListener("mousemove", move_over_pixel); //adds mousemove on pixel                                // ------------------------------
             tr.appendChild(td);
         }
     }
@@ -258,43 +291,13 @@ function preview() {
 }
 
 
-function loadFromCookie(){
-    //console.log("Loaded from Cookie: "+document.cookie);
-    selected_tool = getCookie("icontool");
-    //console.log("Realy? Cookie: "+selected_tool);
-    //console.log("Good, then set it!");
-    tool_selected(selected_tool);
-}
-
-function getCookie(cname) { //from https://www.w3schools.com/js/js_cookies.asp
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
-function saveIntoCookie(){
-    document.cookie = "icontool="+selected_tool;
-}
-
-
 window.addEventListener("DOMContentLoaded", function () {
     validate_init();  // fieser Hack!
-    loadFromCookie();                                                                                                   //------------------------------
+    loadFromCookie(); //load selected tool from cookie                                                                  //------------------------------
     create_table();
     create_color_picker();
-    create_click_event_for_icons();                                                                                     // ------------------------------
-    create_click_event_for_tools();
-
+    create_click_event_for_icons(); //add click events for predefined icons                                             // ------------------------------
+    create_click_event_for_tools(); //adds click events for tools                                                       //----------------
     preview();
 });
 

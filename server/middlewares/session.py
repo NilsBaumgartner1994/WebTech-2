@@ -9,8 +9,9 @@ class SessionMiddleware(Middleware):
     """Add a session attribute to request."""
 
     def __init__(self, cookiename="_sessid"):
+        """ init session """
         self.session = None
-        self.cookiename = cookiename
+        self.cookiename = cookiename #save cookie
         super().__init__()
 
     def process_request(self, request, response):
@@ -46,9 +47,9 @@ class Session:
         self.path = path  # for which path shall the cookie be valid?
         self.data = {}  # the session content as dictionary
         
-        if not self.sessid or not self.check_id():
+        if not self.sessid or not self.check_id(): #is new session?
             log(2, "Session constructor: Generate new Session")
-            self.generate_id()
+            self.generate_id() #set new id
         else:
             try:
                 log(2, "Session constructor: Try to load %s." % self.sessid)

@@ -8,8 +8,8 @@ from cookies import appendDict
 class IconWikiApp(webserver.App):
 
 
-    cookiename = 'nightmode'
-    nightmode = 'hell'
+    cookiename = 'nightmode' #cookiename
+    nightmode = 'hell' #default value
 
     def register_routes(self):
         self.add_route("hilfe$", self.help)

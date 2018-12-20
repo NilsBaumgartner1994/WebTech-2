@@ -30,10 +30,11 @@ class WikiApp(webserver.App):
     """
 
     def register_routes(self):
+        """ register the routes"""
         self.add_route("", self.show)
-        self.add_route("show(/(?P<pagename>\w+))?", self.show)
-        self.add_route("edit/(?P<pagename>\w+)", self.edit)
-        self.add_route("save/(?P<pagename>\w+)", self.save)
+        self.add_route("show(/(?P<pagename>\w+))?", self.show) #show
+        self.add_route("edit/(?P<pagename>\w+)", self.edit) #edit
+        self.add_route("save/(?P<pagename>\w+)", self.save) #save
 
     def read_page(self, pagename):
         """Read wiki page from data directory or raise NoSuchPageError."""
@@ -41,13 +42,13 @@ class WikiApp(webserver.App):
         try:
             with open("wikidata/"+pagename, "r", encoding="utf-8", newline='') as f:
                 x = f.read()
-                m = re.search('^(<icon>[\w\d]*</icon>)([\s\S]*)', x)
+                m = re.search('^(<icon>[\w\d]*</icon>)([\s\S]*)', x) #search for icons
                 if m == None:
                     return None, x
                 icon = m.group(1)
                 icon = re.sub("<icon>", "", icon)
                 icon = re.sub("</icon>", "", icon)
-                return icon, m.group(2)
+                return icon, m.group(2) #reutnr only the icon content
         except IOError:
             raise NoSuchPageError
 
@@ -75,17 +76,18 @@ class WikiApp(webserver.App):
         return text
 
     def getPages(self):
-        page_list = os.listdir("wikidata")
+        """ get Pages"""
+        page_list = os.listdir("wikidata") #get all wiki data files
         pages = []
-        for page_title in page_list:
-                sitepath = "/show/"+page_title
-                icon, text = self.read_page(page_title)
+        for page_title in page_list: #for every page
+                sitepath = "/show/"+page_title #set path
+                icon, text = self.read_page(page_title) #search for icons
                 side = ""
                 if icon == None:
                     icon = ""
                 else:
                     try:
-                        with open("data/" + icon, "r") as f:
+                        with open("data/" + icon, "r") as f: #get the icon
                             side = f.read()
                     except IOError:
                         pass
@@ -94,20 +96,21 @@ class WikiApp(webserver.App):
         return pages
 
     def updateRecently(self, cookies, response, pagename):
+        """ update the recently visited pages"""
         pages = []
-        if "recently" in cookies:
+        if "recently" in cookies: #get all pages saved in the cookies
             pages = re.split("#", cookies["recently"])
-        if "" in pages:
+        if "" in pages: #remove empty pages
             pages.remove("")
         if pagename in pages:
             pages.remove(pagename)
         pages.insert(0, pagename)
-        if len(pages) > 4:
-            pages = pages[0:4]
+        if len(pages) > 4: #if more than 4 pages where visited
+            pages = pages[0:4] #remove rest
         cookiestring = ""
-        for element in pages:
+        for element in pages: #get the rest pages
             if not element == "":
-                cookiestring += element
+                cookiestring += element #save the cookies
                 cookiestring += "#"
         response.add_cookie(webserver.Cookie('recently', cookiestring, path='/'))#, expires=webserver.Cookie.expiry_date(-1)))
         return pages[1:4]
@@ -127,14 +130,14 @@ class WikiApp(webserver.App):
             response.send_redirect("/edit/" + pagename)
             return
 
-        recently = self.updateRecently(request.cookies, response, pagename)
+        recently = self.updateRecently(request.cookies, response, pagename) #update recently visited pages
         recentlyLink = []
         for e in recently:
-            recentlyLink.append(("/show/"+e,e))
+            recentlyLink.append(("/show/"+e,e)) #apend links
         side=""
         if icon != None:
             try:
-                with open("data/"+icon, "r") as f:
+                with open("data/"+icon, "r") as f: #get the icons on the side
                     side = "<a class=icon-list-item><img src='%s' title='%s'></a> " % (f.read(), icon)
             except IOError:
                 log(3, "Icon not found.")
@@ -156,16 +159,16 @@ class WikiApp(webserver.App):
             # use default text if page does not yet exist
             text = "This page is still empty. Fill it."
 
-        icon_list = os.listdir("data")
+        icon_list = os.listdir("data") #get icons
         icons = []
         iconcode = ""
-        for icon_title in icon_list:
-            if icon_title != 'tools' and icon_title != '.DS_Store':
-                with open("data/" + icon_title, "r") as f:
+        for icon_title in icon_list: #get the tools
+            if icon_title != 'tools' and icon_title != '.DS_Store': #if not tools or unwelcome macOS File
+                with open("data/" + icon_title, "r") as f: #read icon
                     x = f.read()
-                    icons.append((x, icon_title))
+                    icons.append((x, icon_title)) #append icon
                     if icon_title == icon:
-                        iconcode = x
+                        iconcode = x #set title
 
         # fill template and show
         response.send_template('wiki/edit.tmpl', appendDict(request, {'text': text, 'iconcode':iconcode, 'pageicon':icon, 'pagename': pagename, 'sidebar':self.getPages(), 'icon_list':icons}))
